@@ -1,18 +1,11 @@
-package org.briarheart.algorithms.search;
-
-import org.briarheart.algorithms.util.Arrays;
+package org.briarheart.algorithms.search.impl;
 
 /**
  * @author Roman Chigvintsev
  */
-public class BinarySearch implements SearchEngine {
+class BinarySearch<T extends Comparable<? super T>> extends AbstractSearchEngine<T> {
     @Override
-    public int doSearch(int key, int[] a) {
-        return doSearch(key, Arrays.wrapPrimitives(a));
-    }
-
-    @Override
-    public <T extends Comparable<? super T>> int doSearch(T key, T[] a) {
+    public int doSearch(T key, T[] a) {
         if (key == null)
             throw new IllegalArgumentException("Key cannot be null");
         if (a == null)
