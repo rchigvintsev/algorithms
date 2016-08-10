@@ -149,7 +149,7 @@ public class SortTest {
 
     private void testSortingAlgorithm(SortingAlgorithm alg) {
         for (String[] a : unsortedCopy)
-            Assert.assertTrue(isSorted(Sort.sort(a, alg)));
+            Assert.assertTrue(isSorted(Sort.doSort(a, alg)));
     }
 
     private void testSortingAlgorithmWithRange(SortingAlgorithm alg) {
@@ -157,7 +157,7 @@ public class SortTest {
             int subarrayLength = a.length / 2;
             int lo = (a.length - subarrayLength) / 2;
             int hi = lo + subarrayLength - 1;
-            Sort.sort(a, lo, hi, alg);
+            Sort.doSort(a, lo, hi, alg);
             Assert.assertTrue(isSorted(a, lo, hi));
         }
 

@@ -3,6 +3,11 @@ package org.briarheart.algorithms.sort.impl;
 import java.util.Random;
 
 /**
+ * Quicksort is developed by Tony Hoare in 1959.
+ * <p>
+ * This algorithm has O(<i>n</i><sup>2</sup>) time complexity in the worst case and O(<i>n</i>log<i>n</i>)
+ * in the average case.
+ *
  * @author Roman Chigvintsev
  */
 class QuickSort<T extends Comparable<? super T>> extends AbstractSortEngine<T> {
