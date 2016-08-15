@@ -22,7 +22,7 @@ public class SearchTest {
     private static String[] searchExample;
 
     @BeforeClass
-    public static void setupClass() throws IOException {
+    public static void setUpClass() throws IOException {
         ClassLoader classLoader = SearchTest.class.getClassLoader();
         URL fileUrl = classLoader.getResource(TEST_DATA_FILE_NAME);
         if (fileUrl == null)

@@ -23,7 +23,7 @@ public class SortTest {
     private String[][] unsortedCopy;
 
     @BeforeClass
-    public static void setupClass() throws IOException {
+    public static void setUpClass() throws IOException {
         ClassLoader classLoader = SortTest.class.getClassLoader();
         unsorted = new String[TEST_DATA_FILE_NAMES.length][];
         for (int i = 0; i < TEST_DATA_FILE_NAMES.length; i++) {
