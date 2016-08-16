@@ -7,11 +7,9 @@ import org.junit.Test;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * @author Roman Chigvintsev
@@ -22,6 +20,7 @@ public class BinarySearchTreeTest {
     private static String[] searchExample;
 
     private BinarySearchTree<String, Integer> bst;
+    private Map<String, Integer> checkMap;
 
     @BeforeClass
     public static void setUpClass() throws IOException {
@@ -41,15 +40,31 @@ public class BinarySearchTreeTest {
     @Before
     public void setUp() {
         bst = new BinarySearchTree<>();
-        for (int i = 0; i < searchExample.length; i++)
+        checkMap = new HashMap<>(searchExample.length);
+
+        for (int i = 0; i < searchExample.length; i++) {
             bst.put(searchExample[i], i);
+            checkMap.put(searchExample[i], i);
+        }
     }
 
     @Test
     public void doTest() {
+        assertFalse(bst.isEmpty());
+
         assertTrue("Not in symmetric order", isBinarySearchTree(bst));
         assertTrue("Subtree counts are not consistent", isSizeConsistent(bst));
         assertTrue("Ranks are not consistent", isRankConsistent(bst));
+
+        assertEquals(checkMap.size(), bst.size());
+
+        for (Map.Entry<String, Integer> entry : checkMap.entrySet()) {
+            assertTrue(bst.contains(entry.getKey()));
+            assertEquals(entry.getValue(), bst.get(entry.getKey()));
+            bst.remove(entry.getKey());
+            assertFalse(bst.contains(entry.getKey()));
+            assertNull(bst.get(entry.getKey()));
+        }
     }
 
     /*
