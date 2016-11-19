@@ -25,7 +25,7 @@ class OptimizedTopDownMergeSort<T extends Comparable<? super T>> extends Abstrac
     }
 
     private void doSort(T[] src, T[] dst, int lo, int hi) {
-        if (lo + INSERTION_SORTING_THRESHOLD >= hi) {
+        if (lo + INSERTION_SORTING_THRESHOLD > hi) {
             insertSortEngine.sort(dst, lo, hi);
             return;
         }

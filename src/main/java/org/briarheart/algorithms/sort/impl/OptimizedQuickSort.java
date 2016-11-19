@@ -13,10 +13,7 @@ class OptimizedQuickSort<T extends Comparable<? super T>> extends AbstractSortEn
 
     @Override
     protected void doSort(T[] a, int lo, int hi) {
-        if (lo >= hi)
-            return;
-
-        if (lo + INSERTION_SORTING_THRESHOLD >= hi) {
+        if (lo + INSERTION_SORTING_THRESHOLD > hi) {
             insertSortEngine.sort(a, lo, hi);
             return;
         }
