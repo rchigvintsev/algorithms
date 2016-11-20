@@ -11,7 +11,7 @@ import java.util.Random;
  * @author Roman Chigvintsev
  */
 class QuickSort<T extends Comparable<? super T>> extends AbstractSortEngine<T> {
-    private Random random = new Random(System.currentTimeMillis());
+    private Random random = new Random();
 
     @Override
     protected void beforeSort(T[] a, int lo, int hi) {
@@ -43,7 +43,7 @@ class QuickSort<T extends Comparable<? super T>> extends AbstractSortEngine<T> {
     }
 
     private void shuffle(T[] a, int lo, int hi) {
-        for (int i = lo; i <= hi; i++) {
+        for (int i = lo; i < hi; i++) {
             int r = i + random.nextInt(hi - i + 1);
             exchange(a, i, r);
         }
