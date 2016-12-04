@@ -19,8 +19,9 @@ class OptimizedQuickSort<T extends Comparable<? super T>> extends AbstractSortEn
         }
 
         int length = hi - lo + 1;
+        int mid = lo + length / 2;
 
-        int n = length <= 40 ? median3(a, lo, lo + length / 2, hi) : tukeyNinther(a, lo, hi);
+        int n = length <= 40 ? median3(a, lo, mid, hi) : tukeyNinther(a, lo, mid, hi);
         exchange(a, n, lo);
 
         // Bentley-McIlroy 3-way partitioning
@@ -59,10 +60,9 @@ class OptimizedQuickSort<T extends Comparable<? super T>> extends AbstractSortEn
     /**
      * Tukey ninther
      */
-    private int tukeyNinther(T[] a, int lo, int hi) {
+    private int tukeyNinther(T[] a, int lo, int mid, int hi) {
         int length = hi - lo + 1;
         int eps = length / 8;
-        int mid = lo + length / 2;
         int m1 = median3(a, lo, lo + eps, lo + eps + eps);
         int m2 = median3(a, mid - eps, mid, mid + eps);
         int m3 = median3(a, hi - eps - eps, hi - eps, hi);
