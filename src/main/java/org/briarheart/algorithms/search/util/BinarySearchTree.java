@@ -39,6 +39,4 @@ public interface BinarySearchTree<K, V> {
     Iterable<K> keys();
 
     Iterable<K> keys(K lo, K hi);
-
-    Iterable<K> levelOrder();
 }

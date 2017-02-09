@@ -153,7 +153,6 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
         return queue;
     }
 
-    @Override
     public Iterable<K> levelOrder() {
         Queue<K> keys = new LinkedList<>();
         Queue<Node> nodes = new LinkedList<>();
@@ -197,8 +196,7 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
 
     protected Node put(Node node, K key, V value) {
         if (node == null)
-            return new Node(key, value, 1);
-
+            return new Node(key, value);
         int cmp = key.compareTo(node.key);
         if (cmp < 0)
             node.left = put(node.left, key, value);
@@ -213,7 +211,6 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
     protected Node remove(Node node, K key) {
         if (node == null)
             return null;
-
         int cmp = key.compareTo(node.key);
         if (cmp < 0)
             node.left = remove(node.left, key);
@@ -333,6 +330,10 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
         protected Node left;
         protected Node right;
         protected int size;
+
+        public Node(K key, V value) {
+            this(key, value, 1);
+        }
 
         public Node(K key, V value, int size) {
             this.key = key;
