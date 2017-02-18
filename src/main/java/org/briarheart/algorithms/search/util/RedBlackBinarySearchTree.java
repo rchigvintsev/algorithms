@@ -49,9 +49,9 @@ public class RedBlackBinarySearchTree<K extends Comparable<? super K>, V> extend
     }
 
     @Override
-    protected Node put(Node node, K key, V value) {
+    protected Node<K, V> put(Node<K, V> node, K key, V value) {
         if (node == null)
-            return new RedBlackNode(key, value, NodeColor.RED);
+            return new RedBlackNode<>(key, value, NodeColor.RED);
         node = super.put(node, key, value);
         if (isRedNode(node.right) && !isRedNode(node.left))
             node = rotateLeft(node);
@@ -64,7 +64,7 @@ public class RedBlackBinarySearchTree<K extends Comparable<? super K>, V> extend
     }
 
     @Override
-    protected Node remove(Node node, K key) {
+    protected Node<K, V> remove(Node<K, V> node, K key) {
         if (key.compareTo(node.key) < 0)  {
             if (!isRedNode(node.left) && !isRedNode(node.left.left))
                 node = moveRedLeft(node);
@@ -77,7 +77,7 @@ public class RedBlackBinarySearchTree<K extends Comparable<? super K>, V> extend
             if (!isRedNode(node.right) && !isRedNode(node.right.left))
                 node = moveRedRight(node);
             if (key.compareTo(node.key) == 0) {
-                Node minRight = min(node.right);
+                Node<K, V> minRight = min(node.right);
                 node.key = minRight.key;
                 node.value = minRight.value;
                 node.right = removeMin(node.right);
@@ -88,7 +88,7 @@ public class RedBlackBinarySearchTree<K extends Comparable<? super K>, V> extend
     }
 
     @Override
-    protected Node removeMin(Node node) {
+    protected Node<K, V> removeMin(Node<K, V> node) {
         if (node.left == null)
             return null;
         if (!isRedNode(node.left) && !isRedNode(node.left.left))
@@ -98,7 +98,7 @@ public class RedBlackBinarySearchTree<K extends Comparable<? super K>, V> extend
     }
 
     @Override
-    protected Node removeMax(Node node) {
+    protected Node<K, V> removeMax(Node<K, V> node) {
         if (isRedNode(node.left))
             node = rotateRight(node);
         if (node.right == null)
@@ -113,8 +113,8 @@ public class RedBlackBinarySearchTree<K extends Comparable<? super K>, V> extend
         return node != null && ((RedBlackNode) node).color == NodeColor.RED;
     }
 
-    private Node rotateLeft(Node node) {
-        Node tmp = node;
+    private Node<K, V> rotateLeft(Node<K, V> node) {
+        Node<K, V> tmp = node;
         node = node.right;
         tmp.right = node.left;
         node.left = tmp;
@@ -125,8 +125,8 @@ public class RedBlackBinarySearchTree<K extends Comparable<? super K>, V> extend
         return node;
     }
 
-    private Node rotateRight(Node node) {
-        Node tmp = node;
+    private Node<K, V> rotateRight(Node<K, V> node) {
+        Node<K, V> tmp = node;
         node = node.left;
         tmp.left = node.right;
         node.right = tmp;
@@ -137,13 +137,13 @@ public class RedBlackBinarySearchTree<K extends Comparable<? super K>, V> extend
         return node;
     }
 
-    private void flipNodeColors(Node node) {
+    private void flipNodeColors(Node<K, V> node) {
         flipNodeColor(node);
         flipNodeColor(node.left);
         flipNodeColor(node.right);
     }
 
-    private void flipNodeColor(Node node) {
+    private void flipNodeColor(Node<K, V> node) {
         ((RedBlackNode) node).color = ((RedBlackNode) node).color == NodeColor.RED ? NodeColor.BLACK : NodeColor.RED;
     }
 
@@ -151,7 +151,7 @@ public class RedBlackBinarySearchTree<K extends Comparable<? super K>, V> extend
      * Assuming that {@code node} is red and both {@code node.left} and {@code node.left.left} are black,
      * make {@code node.left} or one of its children red.
      */
-    private Node moveRedLeft(Node node) {
+    private Node<K, V> moveRedLeft(Node<K, V> node) {
         flipNodeColors(node);
         if (isRedNode(node.right.left)) {
             node.right = rotateRight(node.right);
@@ -161,7 +161,7 @@ public class RedBlackBinarySearchTree<K extends Comparable<? super K>, V> extend
         return node;
     }
 
-    private Node moveRedRight(Node node) {
+    private Node<K, V> moveRedRight(Node<K, V> node) {
         flipNodeColors(node);
         if (isRedNode(node.left.left)) {
             node = rotateRight(node);
@@ -170,7 +170,7 @@ public class RedBlackBinarySearchTree<K extends Comparable<? super K>, V> extend
         return node;
     }
 
-    private Node balance(Node node) {
+    private Node<K, V> balance(Node<K, V> node) {
         if (isRedNode(node.right))
             node = rotateLeft(node);
         if (isRedNode(node.left) && isRedNode(node.left.left))
@@ -181,7 +181,7 @@ public class RedBlackBinarySearchTree<K extends Comparable<? super K>, V> extend
         return node;
     }
 
-    protected class RedBlackNode extends SimpleBinarySearchTree<K, V>.Node {
+    protected static class RedBlackNode<K, V> extends SimpleBinarySearchTree.Node<K, V> {
         protected NodeColor color;
 
         public RedBlackNode(K key, V value, NodeColor color) {

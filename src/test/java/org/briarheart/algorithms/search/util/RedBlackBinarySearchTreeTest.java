@@ -46,7 +46,7 @@ public class RedBlackBinarySearchTreeTest extends AbstractBinarySearchTreeTest {
         fillTree();
         int black = 0;
         RedBlackBinarySearchTree<String, Integer> redBlackBst = (RedBlackBinarySearchTree<String, Integer>) bst;
-        SimpleBinarySearchTree<String, Integer>.Node node = redBlackBst.root;
+        SimpleBinarySearchTree.Node<String, Integer> node = redBlackBst.root;
         while (node != null) {
             if (!redBlackBst.isRedNode(node))
                 black++;
@@ -55,7 +55,7 @@ public class RedBlackBinarySearchTreeTest extends AbstractBinarySearchTreeTest {
         testBalance(redBlackBst.root, black);
     }
 
-    private void test23Tree(SimpleBinarySearchTree<String, Integer>.Node node) {
+    private void test23Tree(SimpleBinarySearchTree.Node<String, Integer> node) {
         RedBlackBinarySearchTree<String, Integer> redBlackBst = (RedBlackBinarySearchTree<String, Integer>) bst;
         if (node == null)
             return;
@@ -65,7 +65,7 @@ public class RedBlackBinarySearchTreeTest extends AbstractBinarySearchTreeTest {
         test23Tree(node.right);
     }
 
-    private void testBalance(SimpleBinarySearchTree<String, Integer>.Node node, int black) {
+    private void testBalance(SimpleBinarySearchTree.Node<String, Integer> node, int black) {
         if (node == null) {
             assertTrue(black == 0);
             return;

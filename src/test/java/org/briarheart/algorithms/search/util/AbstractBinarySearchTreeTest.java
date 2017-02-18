@@ -401,7 +401,7 @@ public abstract class AbstractBinarySearchTreeTest {
             bst.put(letters[i], i);
     }
 
-    private void testOrderSymmetry(SimpleBinarySearchTree<String, Integer>.Node node, String minKey, String maxKey) {
+    private void testOrderSymmetry(SimpleBinarySearchTree.Node<String, Integer> node, String minKey, String maxKey) {
         if (node == null)
             return;
         assertFalse(minKey != null && node.key.compareTo(minKey) <= 0);
@@ -410,7 +410,7 @@ public abstract class AbstractBinarySearchTreeTest {
         testOrderSymmetry(node.right, node.key, maxKey);
     }
 
-    private void testSizeConsistency(SimpleBinarySearchTree<String, Integer>.Node node) {
+    private void testSizeConsistency(SimpleBinarySearchTree.Node<String, Integer> node) {
         if (node == null)
             return;
         assertFalse(node.size != ((SimpleBinarySearchTree<String, Integer>) bst).size(node.left)

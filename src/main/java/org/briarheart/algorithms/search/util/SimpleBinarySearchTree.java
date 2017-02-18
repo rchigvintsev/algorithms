@@ -8,7 +8,7 @@ import java.util.Queue;
  * @author Roman Chigvintsev
  */
 public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implements BinarySearchTree<K, V> {
-    protected Node root;
+    protected Node<K, V> root;
 
     @Override
     public boolean isEmpty() {
@@ -108,7 +108,7 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
             throw new IllegalArgumentException("Key cannot be null");
         if (isEmpty())
             throw new NoSuchElementException("Tree is empty");
-        Node node = floor(root, key);
+        Node<K, V> node = floor(root, key);
         return node == null ? null : node.key;
     }
 
@@ -118,7 +118,7 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
             throw new IllegalArgumentException("Key cannot be null");
         if (isEmpty())
             throw new NoSuchElementException("Tree is empty");
-        Node node = ceiling(root, key);
+        Node<K, V> node = ceiling(root, key);
         return node == null ? null : node.key;
     }
 
@@ -155,11 +155,11 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
 
     public Iterable<K> levelOrder() {
         Queue<K> keys = new LinkedList<>();
-        Queue<Node> nodes = new LinkedList<>();
+        Queue<Node<K, V>> nodes = new LinkedList<>();
         nodes.offer(root);
 
         while (!nodes.isEmpty()) {
-            Node node = nodes.poll();
+            Node<K, V> node = nodes.poll();
             if (node == null)
                 continue;
 
@@ -171,17 +171,17 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
         return keys;
     }
 
-    protected int size(Node node) {
+    protected int size(Node<K, V> node) {
         return node == null ? 0 : node.size;
     }
 
-    protected int height(Node node) {
+    protected int height(Node<K, V> node) {
         if (node == null)
             return -1;
         return Math.max(height(node.left), height(node.right)) + 1;
     }
 
-    protected V get(Node node, K key) {
+    protected V get(Node<K, V> node, K key) {
         while (node != null) {
             int cmp = key.compareTo(node.key);
             if (cmp < 0)
@@ -194,9 +194,9 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
         return null;
     }
 
-    protected Node put(Node node, K key, V value) {
+    protected Node<K, V> put(Node<K, V> node, K key, V value) {
         if (node == null)
-            return new Node(key, value);
+            return new Node<>(key, value);
         int cmp = key.compareTo(node.key);
         if (cmp < 0)
             node.left = put(node.left, key, value);
@@ -208,7 +208,7 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
         return node;
     }
 
-    protected Node remove(Node node, K key) {
+    protected Node<K, V> remove(Node<K, V> node, K key) {
         if (node == null)
             return null;
         int cmp = key.compareTo(node.key);
@@ -221,7 +221,7 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
                 return node.left;
             if (node.left == null)
                 return node.right;
-            Node t = node;
+            Node<K, V> t = node;
             node = min(t.right);
             node.right = removeMin(t.right);
             node.left = t.left;
@@ -230,7 +230,7 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
         return node;
     }
 
-    protected Node removeMin(Node node) {
+    protected Node<K, V> removeMin(Node<K, V> node) {
         if (node.left == null)
             return node.right;
         node.left = removeMin(node.left);
@@ -238,7 +238,7 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
         return node;
     }
 
-    protected Node removeMax(Node node) {
+    protected Node<K, V> removeMax(Node<K, V> node) {
         if (node.right == null)
             return node.left;
         node.right = removeMax(node.right);
@@ -246,19 +246,19 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
         return node;
     }
 
-    protected Node min(Node node) {
+    protected Node<K, V> min(Node<K, V> node) {
         if (node.left == null)
             return node;
         return min(node.left);
     }
 
-    protected Node max(Node node) {
+    protected Node<K, V> max(Node<K, V> node) {
         if (node.right == null)
             return node;
         return max(node.right);
     }
 
-    protected Node floor(Node node, K key) {
+    protected Node<K, V> floor(Node<K, V> node, K key) {
         if (node == null)
             return null;
         int cmp = key.compareTo(node.key);
@@ -266,20 +266,20 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
             return node;
         if (cmp < 0)
             return floor(node.left, key);
-        Node result = floor(node.right, key);
+        Node<K, V> result = floor(node.right, key);
         if (result != null)
             return result;
         return node;
     }
 
-    protected Node ceiling(Node node, K key) {
+    protected Node<K, V> ceiling(Node<K, V> node, K key) {
         if (node == null)
             return null;
         int cmp = key.compareTo(node.key);
         if (cmp == 0)
             return node;
         if (cmp < 0) {
-            Node result = ceiling(node.left, key);
+            Node<K, V> result = ceiling(node.left, key);
             if (result != null)
                 return result;
             return node;
@@ -287,7 +287,7 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
         return ceiling(node.right, key);
     }
 
-    protected Node select(Node node, int k) {
+    protected Node<K, V> select(Node<K, V> node, int k) {
         int lSize = size(node.left);
         if (lSize > k)
             return select(node.left, k);
@@ -296,7 +296,7 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
         return node;
     }
 
-    protected int rank(K key, Node node) {
+    protected int rank(K key, Node<K, V> node) {
         if (node == null)
             return 0;
         int cmp = key.compareTo(node.key);
@@ -307,7 +307,7 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
         return size(node.left);
     }
 
-    protected void keys(Node node, Queue<K> queue, K lo, K hi) {
+    protected void keys(Node<K, V> node, Queue<K> queue, K lo, K hi) {
         if (node == null)
             return;
         int loCmp = lo.compareTo(node.key);
@@ -320,15 +320,15 @@ public class SimpleBinarySearchTree<K extends Comparable<? super K>, V> implemen
             keys(node.right, queue, lo, hi);
     }
 
-    protected void updateSize(Node node) {
+    protected void updateSize(Node<K, V> node) {
         node.size = size(node.left) + size(node.right) + 1;
     }
 
-    protected class Node {
+    protected static class Node<K, V> {
         protected K key;
         protected V value;
-        protected Node left;
-        protected Node right;
+        protected Node<K, V> left;
+        protected Node<K, V> right;
         protected int size;
 
         public Node(K key, V value) {
