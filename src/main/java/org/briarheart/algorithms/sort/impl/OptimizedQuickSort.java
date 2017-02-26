@@ -1,7 +1,7 @@
 package org.briarheart.algorithms.sort.impl;
 
-import org.briarheart.algorithms.sort.SortingAlgorithm;
 import org.briarheart.algorithms.sort.SortEngine;
+import org.briarheart.algorithms.sort.SortingAlgorithm;
 
 /**
  * @author Roman Chigvintsev
@@ -43,13 +43,12 @@ class OptimizedQuickSort<T extends Comparable<? super T>> extends AbstractSortEn
         }
 
         i = j + 1;
-        for (int k = lo; k <= p; k++)
-            exchange(a, k, j--);
-        for (int k = hi; k >= q; k--)
-            exchange(a, k, i++);
 
-        doSort(a, lo, j);
-        doSort(a, i, hi);
+        for (int k = lo; k <= p; k++) exchange(a, k, j--);
+        for (int k = hi; k >= q; k--) exchange(a, k, i++);
+
+        if (lo < j) doSort(a, lo, j);
+        if (hi > i) doSort(a, i, hi);
     }
 
     private int median3(T[] a, int i, int j, int k) {

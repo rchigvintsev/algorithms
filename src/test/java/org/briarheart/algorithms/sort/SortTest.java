@@ -1,6 +1,9 @@
 package org.briarheart.algorithms.sort;
 
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,7 +19,7 @@ import static org.briarheart.algorithms.sort.SortingAlgorithm.*;
  * @author Roman Chigvintsev
  */
 public class SortTest {
-    private static final String[] TEST_DATA_FILE_NAMES = {"tiny.txt", "1Kints.txt"};
+    private static final String[] TEST_DATA_FILE_NAMES = {"tiny.txt", "medTale.txt"};
 
     private static String[][] unsorted;
 
