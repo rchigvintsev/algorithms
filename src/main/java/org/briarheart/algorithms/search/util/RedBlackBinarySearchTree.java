@@ -118,10 +118,10 @@ public class RedBlackBinarySearchTree<K extends Comparable<? super K>, V> extend
         node = node.right;
         tmp.right = node.left;
         node.left = tmp;
-        ((RedBlackNode) node).color = ((RedBlackNode) node.left).color;
-        ((RedBlackNode) node.left).color = NodeColor.RED;
-        node.size = node.left.size;
-        updateSize(node.left);
+        ((RedBlackNode) node).color = ((RedBlackNode) tmp).color;
+        ((RedBlackNode) tmp).color = NodeColor.RED;
+        node.size = tmp.size;
+        updateSize(tmp);
         return node;
     }
 
@@ -130,10 +130,10 @@ public class RedBlackBinarySearchTree<K extends Comparable<? super K>, V> extend
         node = node.left;
         tmp.left = node.right;
         node.right = tmp;
-        ((RedBlackNode) node).color = ((RedBlackNode) node.right).color;
-        ((RedBlackNode) node.right).color = NodeColor.RED;
-        node.size = node.right.size;
-        updateSize(node.right);
+        ((RedBlackNode) node).color = ((RedBlackNode) tmp).color;
+        ((RedBlackNode) tmp).color = NodeColor.RED;
+        node.size = tmp.size;
+        updateSize(tmp);
         return node;
     }
 
