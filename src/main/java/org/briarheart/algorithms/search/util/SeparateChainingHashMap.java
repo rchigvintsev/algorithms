@@ -54,12 +54,14 @@ public class SeparateChainingHashMap<K, V> implements Map<K, V> {
     public V get(Object key) {
         if (key == null)
             throw new IllegalArgumentException("Key cannot be null");
-        int i = hash(key);
-        Node<K, V> node = nodes[i];
-        while (node != null) {
-            if (key.equals(node.key))
-                return node.value;
-            node = node.next;
+        if (!isEmpty()) {
+            int i = hash(key);
+            Node<K, V> node = nodes[i];
+            while (node != null) {
+                if (key.equals(node.key))
+                    return node.value;
+                node = node.next;
+            }
         }
         return null;
     }
@@ -91,7 +93,6 @@ public class SeparateChainingHashMap<K, V> implements Map<K, V> {
     public V remove(Object key) {
         if (key == null)
             throw new IllegalArgumentException("Key cannot be null");
-
         if (!isEmpty()) {
             int i = hash(key);
             Node<K, V> prevNode = null, node = nodes[i];
