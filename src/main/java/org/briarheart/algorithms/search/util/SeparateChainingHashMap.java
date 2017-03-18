@@ -182,7 +182,6 @@ public class SeparateChainingHashMap<K, V> implements Map<K, V> {
                 node = node.next;
             }
 
-        this.size  = temp.size;
         this.nodes = temp.nodes;
     }
 

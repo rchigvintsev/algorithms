@@ -56,6 +56,8 @@ public class LinearProbingHashMap<K, V> implements Map<K, V> {
     public V get(Object key) {
         if (key == null)
             throw new IllegalArgumentException("Key cannot be null");
+        if (isEmpty())
+            return null;
         int i = hash(key);
         while (keys[i] != null) {
             if (keys[i].equals(key))
