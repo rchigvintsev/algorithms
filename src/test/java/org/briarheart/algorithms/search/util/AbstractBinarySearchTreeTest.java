@@ -2,9 +2,9 @@ package org.briarheart.algorithms.search.util;
 
 import org.junit.Test;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import static org.briarheart.test.util.TestUtils.testIterable;
 import static org.junit.Assert.*;
 
 /**
@@ -373,25 +373,6 @@ public abstract class AbstractBinarySearchTreeTest {
             assertFalse(i != bst.rank(bst.select(i)));
         for (String key : bst.keys())
             assertEquals(0, key.compareTo(bst.select(bst.rank(key))));
-    }
-
-    protected <T> void testIterable(Iterable<T> iterable) {
-        testIterable(iterable, null);
-    }
-
-    protected <T> void testIterable(Iterable<T> iterable, T[] expectedValues) {
-        assertNotNull(iterable);
-        Iterator<T> iterator = iterable.iterator();
-        assertNotNull(iterator);
-        if (expectedValues == null || expectedValues.length == 0)
-            assertFalse(iterator.hasNext());
-        else {
-            for (T v : expectedValues) {
-                assertTrue(iterator.hasNext());
-                assertEquals(v, iterator.next());
-            }
-            assertFalse(iterator.hasNext());
-        }
     }
 
     protected void fillTree() {

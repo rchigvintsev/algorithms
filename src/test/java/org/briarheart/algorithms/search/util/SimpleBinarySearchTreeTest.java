@@ -3,6 +3,7 @@ package org.briarheart.algorithms.search.util;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.briarheart.test.util.TestUtils.testIterable;
 import static org.junit.Assert.assertEquals;
 
 /**
