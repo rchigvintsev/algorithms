@@ -1,5 +1,6 @@
 package org.briarheart.algorithms.graph;
 
+import com.google.common.collect.Iterables;
 import com.google.common.graph.Graph;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
@@ -9,24 +10,21 @@ import org.junit.Test;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
 
-import static org.briarheart.test.util.TestUtils.testIterable;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * @author Roman Chigvintsev
  */
-public class DepthFirstSearchTest {
-    private static final String TEST_DATA_FILE_NAME = "tinyG.txt";
+public class DepthFirstPathsTest {
+    private static final String TEST_DATA_FILE_NAME = "tinyCG.txt";
 
     private static Graph<Integer> graph;
 
     @BeforeClass
     public static void setUp() throws IOException {
-        ClassLoader classLoader = DepthFirstSearchTest.class.getClassLoader();
+        ClassLoader classLoader = DepthFirstPathsTest.class.getClassLoader();
         URL fileUrl = classLoader.getResource(TEST_DATA_FILE_NAME);
         if (fileUrl == null)
             throw new FileNotFoundException(TEST_DATA_FILE_NAME);
@@ -55,22 +53,12 @@ public class DepthFirstSearchTest {
     }
 
     @Test
-    public void testForNode0() {
-        testForNodeN(0, false, new Integer[] {0, 1, 2, 3, 4, 5, 6});
-    }
-
-    @Test
-    public void testForNode9() {
-        testForNodeN(9, false, new Integer[] {9, 10, 11, 12});
-    }
-
-    private void testForNodeN(Integer node, boolean connected, Integer[] expectedMarkedNodes) {
-        DepthFirstSearch<Integer> dfs = new DepthFirstSearch<>(graph, node);
-        assertEquals(connected, dfs.getCount() == graph.nodes().size());
-        Set<Integer> markedNodes = new HashSet<>();
-        for (Integer n : graph.nodes())
-            if (dfs.isMarked(n))
-                markedNodes.add(n);
-        testIterable(markedNodes, expectedMarkedNodes);
+    public void doTest() {
+        DepthFirstPaths<Integer> dfs = new DepthFirstPaths<>(graph, 0);
+        for (Integer n : graph.nodes()) {
+            assertTrue(dfs.hasPathTo(n));
+            assertNotNull(dfs.pathTo(n));
+            assertFalse(Iterables.isEmpty(dfs.pathTo(n)));
+        }
     }
 }
