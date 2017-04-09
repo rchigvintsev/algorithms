@@ -1,8 +1,10 @@
 package org.briarheart.algorithms.graph;
 
 import com.google.common.collect.Iterables;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +14,11 @@ import static org.junit.Assert.*;
  * @author Roman Chigvintsev
  */
 public class BreadthFirstPathsTest extends AbstractGraphAlgorithmTest {
+    @BeforeClass
+    public static void setUp() throws IOException {
+        setUp("tinyCG.txt");
+    }
+
     @Test
     public void doTest() {
         BreadthFirstPaths<Integer> bfs = new BreadthFirstPaths<>(graph, 0);
