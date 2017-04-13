@@ -36,9 +36,8 @@ public class DepthFirstPaths<T> {
     }
 
     public boolean hasPathTo(T node) {
-        checkNotNull(node, "Node cannot be null");
+        checkNode(node);
         Integer index = nodeIndexes.get(node);
-        checkArgument(index != null && index < marked.length, "Given node does not belong to this graph");
         return marked[index];
     }
 
@@ -46,7 +45,7 @@ public class DepthFirstPaths<T> {
         if (!hasPathTo(node))
             return Collections.emptyList();
         Deque<T> path = new LinkedList<>();
-        for (T n = node; n != initialNode; n = edgeTo[nodeIndexes.get(n)])
+        for (T n = node; !n.equals(initialNode); n = edgeTo[nodeIndexes.get(n)])
             path.push(n);
         path.push(initialNode);
         return path;
@@ -61,5 +60,11 @@ public class DepthFirstPaths<T> {
                 findPaths(graph, n);
             }
         }
+    }
+
+    private void checkNode(T node) {
+        checkNotNull(node, "Node cannot be null");
+        Integer index = nodeIndexes.get(node);
+        checkArgument(index != null && index < marked.length, "Given node does not belong to this graph");
     }
 }

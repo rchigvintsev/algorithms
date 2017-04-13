@@ -39,10 +39,8 @@ public class BreadthFirstPaths<T> {
     }
 
     public boolean hasPathTo(T node) {
-        checkNotNull(node, "Node cannot be null");
-        Integer index = nodeIndexes.get(node);
-        checkArgument(index != null && index < marked.length, "Given node does not belong to this graph");
-        return marked[index];
+        checkNode(node);
+        return marked[nodeIndexes.get(node)];
     }
 
     public Iterable<T> pathTo(T node) {
@@ -58,10 +56,8 @@ public class BreadthFirstPaths<T> {
     }
 
     public int distanceTo(T node) {
-        checkNotNull(node, "Node cannot be null");
-        Integer index = nodeIndexes.get(node);
-        checkArgument(index != null && index < marked.length, "Given node does not belong to this graph");
-        return distanceTo[index];
+        checkNode(node);
+        return distanceTo[nodeIndexes.get(node)];
     }
 
     private void findPaths(Graph<T> graph, Iterable<T> nodes) {
@@ -85,5 +81,11 @@ public class BreadthFirstPaths<T> {
                 }
             }
         }
+    }
+
+    private void checkNode(T node) {
+        checkNotNull(node, "Node cannot be null");
+        Integer index = nodeIndexes.get(node);
+        checkArgument(index != null && index < marked.length, "Given node does not belong to this graph");
     }
 }
