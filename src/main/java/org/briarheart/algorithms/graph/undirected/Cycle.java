@@ -1,37 +1,31 @@
-package org.briarheart.algorithms.graph;
+package org.briarheart.algorithms.graph.undirected;
 
 import com.google.common.graph.Graph;
+import org.briarheart.algorithms.graph.AbstractGraphAlgorithm;
 
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
 /**
  * @author Roman Chigvintsev
  */
-public class Cycle<T> {
-    private Map<T, Integer> nodeIndexes;
+public class Cycle<T> extends AbstractGraphAlgorithm<T> {
     private boolean[] marked;
     private T[] edgeTo;
     private Deque<T> cycle;
 
     @SuppressWarnings("unchecked")
     public Cycle(Graph<T> graph) {
+        super(graph);
         cycle = findSelfLoop(graph);
         if (cycle == null) {
-            nodeIndexes = new HashMap<>();
-            for (T n : graph.nodes())
-                if (!nodeIndexes.containsKey(n))
-                    nodeIndexes.put(n, nodeIndexes.size());
-
-            cycle = findParallelEdges(graph, nodeIndexes);
+            cycle = findParallelEdges(graph);
             if (cycle == null) {
                 int nodesSize = graph.nodes().size();
                 marked = new boolean[nodesSize];
                 edgeTo = (T[]) new Object[nodesSize];
                 for (T node : graph.nodes())
-                    if (!marked[nodeIndexes.get(node)])
+                    if (!marked[indexOf(node)])
                         depthFirstSearch(graph, null, node);
             }
         }
@@ -46,17 +40,17 @@ public class Cycle<T> {
     }
 
     private void depthFirstSearch(Graph<T> graph, T prevNode, T node) {
-        marked[nodeIndexes.get(node)] = true;
+        marked[indexOf(node)] = true;
         for (T adjacentNode : graph.adjacentNodes(node)) {
             if (cycle != null)
                 return;
-            int nIndex = nodeIndexes.get(adjacentNode);
+            int nIndex = indexOf(adjacentNode);
             if (!marked[nIndex]) {
                 edgeTo[nIndex] = node;
                 depthFirstSearch(graph, node, adjacentNode);
             } else if (!adjacentNode.equals(prevNode)) {
                 cycle = new LinkedList<>();
-                for (T n = node; !n.equals(adjacentNode); n = edgeTo[nodeIndexes.get(n)])
+                for (T n = node; !n.equals(adjacentNode); n = edgeTo[indexOf(n)])
                     cycle.push(n);
                 cycle.push(adjacentNode);
                 cycle.push(node);
@@ -64,7 +58,7 @@ public class Cycle<T> {
         }
     }
 
-    private static <T> Deque<T> findSelfLoop(Graph<T> graph) {
+    private Deque<T> findSelfLoop(Graph<T> graph) {
         for (T node : graph.nodes())
             for (T adjacentNode : graph.adjacentNodes(node))
                 if (node.equals(adjacentNode)) {
@@ -76,12 +70,12 @@ public class Cycle<T> {
         return null;
     }
 
-    private static <T> Deque<T> findParallelEdges(Graph<T> graph, Map<T, Integer> nodeIndexes) {
+    private Deque<T> findParallelEdges(Graph<T> graph) {
         boolean[] marked = new boolean[graph.nodes().size()];
 
         for (T node : graph.nodes()) {
             for (T adjacentNode : graph.adjacentNodes(node)) {
-                int nIndex = nodeIndexes.get(adjacentNode);
+                int nIndex = indexOf(adjacentNode);
                 if (marked[nIndex]) {
                     Deque<T> cycle = new LinkedList<>();
                     cycle.push(node);
@@ -93,7 +87,7 @@ public class Cycle<T> {
             }
 
             for (T adjacentNode : graph.adjacentNodes(node))
-                marked[nodeIndexes.get(adjacentNode)] = false;
+                marked[indexOf(adjacentNode)] = false;
         }
         return null;
     }

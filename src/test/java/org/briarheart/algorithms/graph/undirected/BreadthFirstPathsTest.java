@@ -1,6 +1,10 @@
-package org.briarheart.algorithms.graph;
+package org.briarheart.algorithms.graph.undirected;
 
 import com.google.common.collect.Iterables;
+import com.google.common.graph.Graph;
+import com.google.common.graph.GraphBuilder;
+import com.google.common.graph.MutableGraph;
+import org.briarheart.algorithms.graph.AbstractGraphAlgorithmTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -8,15 +12,20 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.briarheart.test.util.GraphTestUtils.fillGraph;
 import static org.junit.Assert.*;
 
 /**
  * @author Roman Chigvintsev
  */
 public class BreadthFirstPathsTest extends AbstractGraphAlgorithmTest {
+    private static Graph<Integer> graph;
+
     @BeforeClass
     public static void setUp() throws IOException {
-        setUp("tinyCG.txt");
+        MutableGraph<Integer> mutableGraph = GraphBuilder.undirected().build();
+        fillGraph(mutableGraph, "tinyCG.txt");
+        graph = mutableGraph;
     }
 
     @Test

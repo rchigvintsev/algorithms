@@ -1,5 +1,9 @@
-package org.briarheart.algorithms.graph;
+package org.briarheart.algorithms.graph.undirected;
 
+import com.google.common.graph.Graph;
+import com.google.common.graph.GraphBuilder;
+import com.google.common.graph.MutableGraph;
+import org.briarheart.algorithms.graph.AbstractGraphAlgorithmTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -9,6 +13,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static org.briarheart.test.util.GraphTestUtils.fillGraph;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -16,9 +21,13 @@ import static org.junit.Assert.assertTrue;
  * @author Roman Chigvintsev
  */
 public class ConnectedComponentsTest extends AbstractGraphAlgorithmTest {
+    private static Graph<Integer> graph;
+
     @BeforeClass
     public static void setUp() throws IOException {
-        setUp("tinyG.txt");
+        MutableGraph<Integer> mutableGraph = GraphBuilder.undirected().build();
+        fillGraph(mutableGraph, "tinyG.txt");
+        graph = mutableGraph;
     }
 
     @Test

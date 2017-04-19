@@ -1,9 +1,10 @@
 package org.briarheart.algorithms.search.util;
 
+import org.briarheart.test.util.AssertUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.briarheart.test.util.TestUtils.testIterable;
+import static org.briarheart.test.util.AssertUtils.assertIterableEmpty;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -39,16 +40,16 @@ public class SimpleBinarySearchTreeTest extends AbstractBinarySearchTreeTest {
     @Test
     public void testLevelOrder() {
         SimpleBinarySearchTree<String, Integer> simpleBst = (SimpleBinarySearchTree<String, Integer>) bst;
-        testIterable(simpleBst.levelOrder());
+        assertIterableEmpty(simpleBst.levelOrder());
         bst.put("2", 2);
         bst.put("3", 3);
         bst.put("4", 4);
-        testIterable(simpleBst.levelOrder(), new String[] {"2", "3", "4"});
+        AssertUtils.assertIterableContainsOnly(new String[] {"2", "3", "4"}, simpleBst.levelOrder());
         bst.put("0", 0);
-        testIterable(simpleBst.levelOrder(), new String[] {"2", "0", "3", "4"});
+        AssertUtils.assertIterableContainsOnly(new String[] {"2", "0", "3", "4"}, simpleBst.levelOrder());
         bst.put("1", 1);
-        testIterable(simpleBst.levelOrder(), new String[] {"2", "0", "3", "1", "4"});
+        AssertUtils.assertIterableContainsOnly(new String[] {"2", "0", "3", "1", "4"}, simpleBst.levelOrder());
         bst.remove("2");
-        testIterable(simpleBst.levelOrder(), new String[] {"3", "0", "4", "1"});
+        AssertUtils.assertIterableContainsOnly(new String[] {"3", "0", "4", "1"}, simpleBst.levelOrder());
     }
 }

@@ -1,6 +1,7 @@
-package org.briarheart.algorithms.graph;
+package org.briarheart.algorithms.graph.undirected;
 
 import com.google.common.graph.Graph;
+import org.briarheart.algorithms.graph.AbstractGraphAlgorithm;
 
 import java.util.*;
 
@@ -10,8 +11,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * @author Roman Chigvintsev
  */
-public class BreadthFirstPaths<T> {
-    private Map<T, Integer> nodeIndexes;
+public class BreadthFirstPaths<T> extends AbstractGraphAlgorithm<T> {
     private boolean[] marked;
     private T[] edgeTo;
     private int[] distanceTo;
@@ -21,14 +21,8 @@ public class BreadthFirstPaths<T> {
     }
 
     public BreadthFirstPaths(Graph<T> graph, Iterable<T> nodes) {
-        checkNotNull(graph, "Graph cannot be null");
+        super(graph);
         checkNotNull(nodes, "Nodes cannot be null");
-
-        nodeIndexes = new HashMap<>();
-        for (T n : graph.nodes())
-            if (!nodeIndexes.containsKey(n))
-                nodeIndexes.put(n, nodeIndexes.size());
-
         int nodesSize = graph.nodes().size();
         marked = new boolean[nodesSize];
         //noinspection unchecked
@@ -40,16 +34,16 @@ public class BreadthFirstPaths<T> {
 
     public boolean hasPathTo(T node) {
         checkNode(node);
-        return marked[nodeIndexes.get(node)];
+        return marked[indexOf(node)];
     }
 
     public Iterable<T> pathTo(T node) {
         if (!hasPathTo(node))
             return Collections.emptyList();
         Deque<T> path = new LinkedList<>();
-        while (distanceTo[nodeIndexes.get(node)] != 0) {
+        while (distanceTo[indexOf(node)] != 0) {
             path.push(node);
-            node = edgeTo[nodeIndexes.get(node)];
+            node = edgeTo[indexOf(node)];
         }
         path.push(node);
         return path;
@@ -57,13 +51,13 @@ public class BreadthFirstPaths<T> {
 
     public int distanceTo(T node) {
         checkNode(node);
-        return distanceTo[nodeIndexes.get(node)];
+        return distanceTo[indexOf(node)];
     }
 
     private void findPaths(Graph<T> graph, Iterable<T> nodes) {
         Queue<T> queue = new LinkedList<>();
         for (T n : nodes) {
-            int nIndex = nodeIndexes.get(n);
+            int nIndex = indexOf(n);
             marked[nIndex] = true;
             distanceTo[nIndex] = 0;
             queue.offer(n);
@@ -72,10 +66,10 @@ public class BreadthFirstPaths<T> {
         while (!queue.isEmpty()) {
             T node = queue.poll();
             for (T n : graph.adjacentNodes(node)) {
-                int nIndex = nodeIndexes.get(n);
+                int nIndex = indexOf(n);
                 if (!marked[nIndex]) {
                     edgeTo[nIndex] = node;
-                    distanceTo[nIndex] = distanceTo[nodeIndexes.get(node)] + 1;
+                    distanceTo[nIndex] = distanceTo[indexOf(node)] + 1;
                     marked[nIndex] = true;
                     queue.offer(n);
                 }
@@ -85,7 +79,7 @@ public class BreadthFirstPaths<T> {
 
     private void checkNode(T node) {
         checkNotNull(node, "Node cannot be null");
-        Integer index = nodeIndexes.get(node);
+        Integer index = indexOf(node);
         checkArgument(index != null && index < marked.length, "Given node does not belong to this graph");
     }
 }

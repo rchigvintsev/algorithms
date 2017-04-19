@@ -1,9 +1,7 @@
-package org.briarheart.algorithms.graph;
+package org.briarheart.algorithms.graph.undirected;
 
 import com.google.common.graph.Graph;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.briarheart.algorithms.graph.AbstractGraphAlgorithm;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -11,28 +9,21 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * @author Roman Chigvintsev
  */
-public class ConnectedComponents<T> {
-    private Map<T, Integer> nodeIndexes;
+public class ConnectedComponents<T> extends AbstractGraphAlgorithm<T> {
     private boolean[] marked;
     private int[] id;
     private int[] size;
     private int count;
 
     public ConnectedComponents(Graph<T> graph) {
-        checkNotNull(graph, "Graph cannot be null");
-
-        nodeIndexes = new HashMap<>();
-        for (T n : graph.nodes())
-            if (!nodeIndexes.containsKey(n))
-                nodeIndexes.put(n, nodeIndexes.size());
-
+        super(graph);
         int nodesSize = graph.nodes().size();
         marked = new boolean[nodesSize];
         id = new int[nodesSize];
         size = new int[nodesSize];
 
         for (T node : graph.nodes())
-            if (!marked[nodeIndexes.get(node)]) {
+            if (!marked[indexOf(node)]) {
                 depthFirstSearch(graph, node);
                 count++;
             }
@@ -40,12 +31,12 @@ public class ConnectedComponents<T> {
 
     public int componentId(T node) {
         checkNode(node);
-        return id[nodeIndexes.get(node)];
+        return id[indexOf(node)];
     }
 
     public int componentSize(T node) {
         checkNode(node);
-        return size[id[nodeIndexes.get(node)]];
+        return size[id[indexOf(node)]];
     }
 
     public int count() {
@@ -57,18 +48,18 @@ public class ConnectedComponents<T> {
     }
 
     private void depthFirstSearch(Graph<T> graph, T node) {
-        int nIndex = nodeIndexes.get(node);
+        int nIndex = indexOf(node);
         marked[nIndex] = true;
         id[nIndex] = count;
         size[count]++;
         for (T n : graph.adjacentNodes(node))
-            if (!marked[nodeIndexes.get(n)])
+            if (!marked[indexOf(n)])
                 depthFirstSearch(graph, n);
     }
 
     private void checkNode(T node) {
         checkNotNull(node, "Node cannot be null");
-        Integer index = nodeIndexes.get(node);
+        Integer index = indexOf(node);
         checkArgument(index != null && index < marked.length, "Given node does not belong to this graph");
     }
 }

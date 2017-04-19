@@ -2,7 +2,9 @@ package org.briarheart.algorithms.graph;
 
 import com.google.common.graph.Graph;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.LinkedList;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -13,58 +15,51 @@ import static com.google.common.base.Preconditions.checkNotNull;
  *
  * @author Roman Chigvintsev
  */
-public class DepthFirstPaths<T> {
+public class DepthFirstPaths<T> extends AbstractGraphAlgorithm<T> {
     private T initialNode;
-    private Map<T, Integer> nodeIndexes;
     private boolean[] marked;
     private T[] edgeTo;
 
+    @SuppressWarnings("unchecked")
     public DepthFirstPaths(Graph<T> graph, T initialNode) {
-        checkNotNull(graph, "Graph cannot be null");
+        super(graph);
         checkNotNull(initialNode, "Initial node cannot be null");
-
         this.initialNode = initialNode;
-        nodeIndexes = new HashMap<>();
-        for (T n : graph.nodes())
-            if (!nodeIndexes.containsKey(n))
-                nodeIndexes.put(n, nodeIndexes.size());
         int nodesSize = graph.nodes().size();
         marked = new boolean[nodesSize];
-        //noinspection unchecked
         edgeTo = (T[]) new Object[nodesSize];
         findPaths(graph, initialNode);
     }
 
     public boolean hasPathTo(T node) {
         checkNode(node);
-        Integer index = nodeIndexes.get(node);
-        return marked[index];
+        return marked[indexOf(node)];
     }
 
     public Iterable<T> pathTo(T node) {
         if (!hasPathTo(node))
             return Collections.emptyList();
         Deque<T> path = new LinkedList<>();
-        for (T n = node; !n.equals(initialNode); n = edgeTo[nodeIndexes.get(n)])
+        for (T n = node; !n.equals(initialNode); n = edgeTo[indexOf(n)])
             path.push(n);
         path.push(initialNode);
         return path;
     }
 
     private void findPaths(Graph<T> graph, T node) {
-        marked[nodeIndexes.get(node)] = true;
-        for (T n : graph.adjacentNodes(node)) {
-            int nIndex = nodeIndexes.get(n);
+        marked[indexOf(node)] = true;
+        for (T adjacentNode : graph.successors(node)) {
+            int nIndex = indexOf(adjacentNode);
             if (!marked[nIndex]) {
                 edgeTo[nIndex] = node;
-                findPaths(graph, n);
+                findPaths(graph, adjacentNode);
             }
         }
     }
 
     private void checkNode(T node) {
         checkNotNull(node, "Node cannot be null");
-        Integer index = nodeIndexes.get(node);
+        Integer index = indexOf(node);
         checkArgument(index != null && index < marked.length, "Given node does not belong to this graph");
     }
 }

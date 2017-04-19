@@ -1,10 +1,11 @@
 package org.briarheart.algorithms.search.util;
 
+import org.briarheart.test.util.AssertUtils;
 import org.junit.Test;
 
 import java.util.NoSuchElementException;
 
-import static org.briarheart.test.util.TestUtils.testIterable;
+import static org.briarheart.test.util.AssertUtils.assertIterableEmpty;
 import static org.junit.Assert.*;
 
 /**
@@ -316,11 +317,11 @@ public abstract class AbstractBinarySearchTreeTest {
     @Test
     public void testKeys() {
         bst.put("0", 0);
-        testIterable(bst.keys(), new String[] {"0"});
+        AssertUtils.assertIterableContainsOnly(new String[] {"0"}, bst.keys());
         bst.put("1", 1);
-        testIterable(bst.keys(), new String[] {"0", "1"});
+        AssertUtils.assertIterableContainsOnly(new String[] {"0", "1"}, bst.keys());
         bst.remove("0");
-        testIterable(bst.keys(), new String[] {"1"});
+        AssertUtils.assertIterableContainsOnly(new String[] {"1"}, bst.keys());
     }
 
     @Test(expected = NoSuchElementException.class)
@@ -334,19 +335,19 @@ public abstract class AbstractBinarySearchTreeTest {
         bst.put("3", 3);
         bst.put("4", 4);
 
-        testIterable(bst.keys("0", "1"));
-        testIterable(bst.keys("5", "6"));
+        assertIterableEmpty(bst.keys("0", "1"));
+        assertIterableEmpty(bst.keys("5", "6"));
 
-        testIterable(bst.keys("1", "0"));
+        assertIterableEmpty(bst.keys("1", "0"));
 
-        testIterable(bst.keys("0", "2"), new String[] {"2"});
-        testIterable(bst.keys("4", "5"), new String[] {"4"});
+        AssertUtils.assertIterableContainsOnly(new String[] {"2"}, bst.keys("0", "2"));
+        AssertUtils.assertIterableContainsOnly(new String[] {"4"}, bst.keys("4", "5"));
 
-        testIterable(bst.keys("3", "3"), new String[] {"3"});
-        testIterable(bst.keys("2", "4"), new String[] {"2", "3", "4"});
-        testIterable(bst.keys("2", "3"), new String[] {"2", "3"});
-        testIterable(bst.keys("3", "4"), new String[] {"3", "4"});
-        testIterable(bst.keys("1", "5"), new String[] {"2", "3", "4"});
+        AssertUtils.assertIterableContainsOnly(new String[] {"3"}, bst.keys("3", "3"));
+        AssertUtils.assertIterableContainsOnly(new String[] {"2", "3", "4"}, bst.keys("2", "4"));
+        AssertUtils.assertIterableContainsOnly(new String[] {"2", "3"}, bst.keys("2", "3"));
+        AssertUtils.assertIterableContainsOnly(new String[] {"3", "4"}, bst.keys("3", "4"));
+        AssertUtils.assertIterableContainsOnly(new String[] {"2", "3", "4"}, bst.keys("1", "5"));
     }
 
     @Test(expected = IllegalArgumentException.class)

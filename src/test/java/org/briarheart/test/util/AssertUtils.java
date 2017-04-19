@@ -7,16 +7,16 @@ import static org.junit.Assert.*;
 /**
  * @author Roman Chigvintsev
  */
-public class TestUtils {
-    private TestUtils() {
+public class AssertUtils {
+    private AssertUtils() {
         //no instance
     }
 
-    public static <T> void testIterable(Iterable<T> iterable) {
-        testIterable(iterable, null);
+    public static <T> void assertIterableEmpty(Iterable<T> iterable) {
+        assertIterableContainsOnly(null, iterable);
     }
 
-    public static <T> void testIterable(Iterable<T> iterable, T[] expectedValues) {
+    public static <T> void assertIterableContainsOnly(T[] expectedValues, Iterable<T> iterable) {
         assertNotNull(iterable);
         Iterator<T> iterator = iterable.iterator();
         assertNotNull(iterator);
