@@ -5,7 +5,6 @@ import org.briarheart.algorithms.graph.AbstractGraphAlgorithm;
 
 import java.util.*;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -16,20 +15,16 @@ public class BreadthFirstPaths<T> extends AbstractGraphAlgorithm<T> {
     private T[] edgeTo;
     private int[] distanceTo;
 
-    public BreadthFirstPaths(Graph<T> graph, T node) {
-       this(graph, Collections.singletonList(node));
-    }
-
-    public BreadthFirstPaths(Graph<T> graph, Iterable<T> nodes) {
+    public BreadthFirstPaths(Graph<T> graph, T initialNode) {
         super(graph);
-        checkNotNull(nodes, "Nodes cannot be null");
+        checkNotNull(initialNode, "Initial node cannot be null");
         int nodesSize = graph.nodes().size();
         marked = new boolean[nodesSize];
         //noinspection unchecked
         edgeTo = (T[]) new Object[nodesSize];
         distanceTo = new int[nodesSize];
         Arrays.fill(distanceTo, Integer.MAX_VALUE);
-        findPaths(graph, nodes);
+        findPaths(graph, initialNode);
     }
 
     public boolean hasPathTo(T node) {
@@ -54,14 +49,11 @@ public class BreadthFirstPaths<T> extends AbstractGraphAlgorithm<T> {
         return distanceTo[indexOf(node)];
     }
 
-    private void findPaths(Graph<T> graph, Iterable<T> nodes) {
+    private void findPaths(Graph<T> graph, T initialNode) {
         Queue<T> queue = new LinkedList<>();
-        for (T n : nodes) {
-            int nIndex = indexOf(n);
-            marked[nIndex] = true;
-            distanceTo[nIndex] = 0;
-            queue.offer(n);
-        }
+        marked[indexOf(initialNode)] = true;
+        distanceTo[indexOf(initialNode)] = 0;
+        queue.offer(initialNode);
 
         while (!queue.isEmpty()) {
             T node = queue.poll();
@@ -75,11 +67,5 @@ public class BreadthFirstPaths<T> extends AbstractGraphAlgorithm<T> {
                 }
             }
         }
-    }
-
-    private void checkNode(T node) {
-        checkNotNull(node, "Node cannot be null");
-        Integer index = indexOf(node);
-        checkArgument(index != null && index < marked.length, "Given node does not belong to this graph");
     }
 }

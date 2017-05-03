@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -55,11 +54,5 @@ public class DepthFirstPaths<T> extends AbstractGraphAlgorithm<T> {
                 findPaths(graph, adjacentNode);
             }
         }
-    }
-
-    private void checkNode(T node) {
-        checkNotNull(node, "Node cannot be null");
-        Integer index = indexOf(node);
-        checkArgument(index != null && index < marked.length, "Given node does not belong to this graph");
     }
 }

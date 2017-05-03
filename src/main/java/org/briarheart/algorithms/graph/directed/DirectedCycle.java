@@ -9,23 +9,22 @@ import java.util.LinkedList;
 /**
  * @author Roman Chigvintsev
  */
-public class Cycle<T> extends AbstractGraphAlgorithm<T> {
+public class DirectedCycle<T> extends AbstractGraphAlgorithm<T> {
     private boolean[] marked;
     private T[] edgeTo;
     private boolean[] onStack;
     private Deque<T> cycle;
 
     @SuppressWarnings("unchecked")
-    public Cycle(Graph<T> graph) {
+    public DirectedCycle(Graph<T> graph) {
         super(graph);
         int nodesSize = graph.nodes().size();
         marked = new boolean[nodesSize];
         onStack = new boolean[nodesSize];
         edgeTo = (T[]) new Object[nodesSize];
-        for (T node : graph.nodes()) {
+        for (T node : graph.nodes())
             if (!marked[indexOf(node)] && cycle == null)
                 depthFirstSearch(graph, node);
-        }
     }
 
     public boolean hasCycle() {

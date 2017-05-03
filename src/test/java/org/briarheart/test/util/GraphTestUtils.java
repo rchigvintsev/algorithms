@@ -1,5 +1,6 @@
 package org.briarheart.test.util;
 
+import com.google.common.graph.Graph;
 import com.google.common.graph.MutableGraph;
 import org.briarheart.algorithms.graph.DepthFirstPathsTest;
 
@@ -17,39 +18,39 @@ import static org.junit.Assert.assertNotNull;
  * @author Roman Chigvintsev
  */
 public class GraphTestUtils {
-    private static final Pattern EDGE_PATTERN = Pattern.compile("\\s*(\\d+)\\s*(\\d+)");
+    private static final Pattern EDGE_PATTERN_1 = Pattern.compile("^(?: )*(\\d+)(?: )+(\\d+)");
+    private static final Pattern EDGE_PATTERN_2 = Pattern.compile("([\\w ]+)/?");
 
     private GraphTestUtils() {
         //no instance
     }
 
-    public static void fillGraph(MutableGraph<Integer> graph, String testDataFileName) throws IOException {
+    @SuppressWarnings("unchecked")
+    public static <T> Graph<T> fillGraph(MutableGraph<T> graph, String testDataFileName) throws IOException {
         ClassLoader classLoader = DepthFirstPathsTest.class.getClassLoader();
         URL fileUrl = classLoader.getResource(testDataFileName);
         if (fileUrl == null)
             throw new FileNotFoundException(testDataFileName);
 
         Scanner scanner = new Scanner(fileUrl.openStream());
-        int lineNumber = 0;
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
-            if (lineNumber < 2) {
-                if (lineNumber == 0) { // Number of nodes
-                    int nodesNumber = Integer.parseInt(line);
-                    for (int i = 0; i < nodesNumber; i++)
-                        graph.addNode(i);
-                }
-                lineNumber++;
-                continue;
-            }
-            Matcher matcher = EDGE_PATTERN.matcher(line);
+            Matcher matcher = EDGE_PATTERN_1.matcher(line);
             if (matcher.find()) {
-                int nodeU = Integer.parseInt(matcher.group(1));
-                int nodeV = Integer.parseInt(matcher.group(2));
-                graph.putEdge(nodeU, nodeV);
+                Integer nodeU = Integer.parseInt(matcher.group(1));
+                Integer nodeV = Integer.parseInt(matcher.group(2));
+                graph.putEdge((T) nodeU, (T) nodeV);
+            } else {
+                matcher = EDGE_PATTERN_2.matcher(line);
+                if (matcher.find()) {
+                    String node = matcher.group(1);
+                    while (matcher.find())
+                        graph.putEdge((T) node, (T) matcher.group(1));
+                }
             }
-            lineNumber++;
         }
+
+        return graph;
     }
 
     public static <T> void checkCycle(Iterable<T> cycle) {

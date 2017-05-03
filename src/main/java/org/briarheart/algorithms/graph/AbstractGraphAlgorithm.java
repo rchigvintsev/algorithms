@@ -5,6 +5,7 @@ import com.google.common.graph.Graph;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -22,5 +23,11 @@ public abstract class AbstractGraphAlgorithm<T> {
 
     protected Integer indexOf(T node) {
         return nodeIndexes.get(node);
+    }
+
+    protected void checkNode(T node) {
+        checkNotNull(node, "Node cannot be null");
+        Integer index = indexOf(node);
+        checkArgument(index != null, "Given node does not belong to this graph");
     }
 }

@@ -2,7 +2,6 @@ package org.briarheart.algorithms.graph.undirected;
 
 import com.google.common.graph.Graph;
 import com.google.common.graph.GraphBuilder;
-import com.google.common.graph.MutableGraph;
 import org.briarheart.algorithms.graph.AbstractGraphAlgorithmTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,9 +20,7 @@ public class CycleTest extends AbstractGraphAlgorithmTest {
 
     @BeforeClass
     public static void setUp() throws IOException {
-        MutableGraph<Integer> mutableGraph = GraphBuilder.undirected().build();
-        fillGraph(mutableGraph, "tinyG.txt");
-        graph = mutableGraph;
+        graph = fillGraph(GraphBuilder.undirected().build(), "tinyG.txt");
     }
 
     @Test

@@ -3,9 +3,6 @@ package org.briarheart.algorithms.graph.undirected;
 import com.google.common.graph.Graph;
 import org.briarheart.algorithms.graph.AbstractGraphAlgorithm;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-
 /**
  * @author Roman Chigvintsev
  */
@@ -55,11 +52,5 @@ public class ConnectedComponents<T> extends AbstractGraphAlgorithm<T> {
         for (T n : graph.adjacentNodes(node))
             if (!marked[indexOf(n)])
                 depthFirstSearch(graph, n);
-    }
-
-    private void checkNode(T node) {
-        checkNotNull(node, "Node cannot be null");
-        Integer index = indexOf(node);
-        checkArgument(index != null && index < marked.length, "Given node does not belong to this graph");
     }
 }
