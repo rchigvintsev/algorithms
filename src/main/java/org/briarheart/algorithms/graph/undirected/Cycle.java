@@ -1,7 +1,7 @@
 package org.briarheart.algorithms.graph.undirected;
 
 import com.google.common.graph.Graph;
-import org.briarheart.algorithms.graph.AbstractGraphAlgorithm;
+import org.briarheart.algorithms.graph.SymbolGraph;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -9,24 +9,25 @@ import java.util.LinkedList;
 /**
  * @author Roman Chigvintsev
  */
-public class Cycle<T> extends AbstractGraphAlgorithm<T> {
+public class Cycle<T> {
+    private SymbolGraph<T> symbolGraph;
     private boolean[] marked;
     private T[] edgeTo;
     private Deque<T> cycle;
 
     @SuppressWarnings("unchecked")
     public Cycle(Graph<T> graph) {
-        super(graph);
-        cycle = findSelfLoop(graph);
+        symbolGraph = new SymbolGraph<>(graph);
+        cycle = findSelfLoop();
         if (cycle == null) {
-            cycle = findParallelEdges(graph);
+            cycle = findParallelEdges();
             if (cycle == null) {
                 int nodesSize = graph.nodes().size();
                 marked = new boolean[nodesSize];
                 edgeTo = (T[]) new Object[nodesSize];
-                for (T node : graph.nodes())
-                    if (!marked[indexOf(node)])
-                        depthFirstSearch(graph, null, node);
+                for (T node : symbolGraph.nodes())
+                    if (!marked[symbolGraph.indexOf(node)])
+                        depthFirstSearch(null, node);
             }
         }
     }
@@ -39,18 +40,18 @@ public class Cycle<T> extends AbstractGraphAlgorithm<T> {
         return cycle;
     }
 
-    private void depthFirstSearch(Graph<T> graph, T prevNode, T node) {
-        marked[indexOf(node)] = true;
-        for (T adjacentNode : graph.adjacentNodes(node)) {
+    private void depthFirstSearch(T prevNode, T node) {
+        marked[symbolGraph.indexOf(node)] = true;
+        for (T adjacentNode : symbolGraph.adjacentNodes(node)) {
             if (cycle != null)
                 return;
-            int nIndex = indexOf(adjacentNode);
+            int nIndex = symbolGraph.indexOf(adjacentNode);
             if (!marked[nIndex]) {
                 edgeTo[nIndex] = node;
-                depthFirstSearch(graph, node, adjacentNode);
+                depthFirstSearch(node, adjacentNode);
             } else if (!adjacentNode.equals(prevNode)) {
                 cycle = new LinkedList<>();
-                for (T n = node; !n.equals(adjacentNode); n = edgeTo[indexOf(n)])
+                for (T n = node; !n.equals(adjacentNode); n = edgeTo[symbolGraph.indexOf(n)])
                     cycle.push(n);
                 cycle.push(adjacentNode);
                 cycle.push(node);
@@ -58,9 +59,9 @@ public class Cycle<T> extends AbstractGraphAlgorithm<T> {
         }
     }
 
-    private Deque<T> findSelfLoop(Graph<T> graph) {
-        for (T node : graph.nodes())
-            for (T adjacentNode : graph.adjacentNodes(node))
+    private Deque<T> findSelfLoop() {
+        for (T node : symbolGraph.nodes())
+            for (T adjacentNode : symbolGraph.adjacentNodes(node))
                 if (node.equals(adjacentNode)) {
                     Deque<T> cycle = new LinkedList<>();
                     cycle.push(node);
@@ -70,12 +71,12 @@ public class Cycle<T> extends AbstractGraphAlgorithm<T> {
         return null;
     }
 
-    private Deque<T> findParallelEdges(Graph<T> graph) {
-        boolean[] marked = new boolean[graph.nodes().size()];
+    private Deque<T> findParallelEdges() {
+        boolean[] marked = new boolean[symbolGraph.nodes().size()];
 
-        for (T node : graph.nodes()) {
-            for (T adjacentNode : graph.adjacentNodes(node)) {
-                int nIndex = indexOf(adjacentNode);
+        for (T node : symbolGraph.nodes()) {
+            for (T adjacentNode : symbolGraph.adjacentNodes(node)) {
+                int nIndex = symbolGraph.indexOf(adjacentNode);
                 if (marked[nIndex]) {
                     Deque<T> cycle = new LinkedList<>();
                     cycle.push(node);
@@ -86,8 +87,8 @@ public class Cycle<T> extends AbstractGraphAlgorithm<T> {
                 marked[nIndex] = true;
             }
 
-            for (T adjacentNode : graph.adjacentNodes(node))
-                marked[indexOf(adjacentNode)] = false;
+            for (T adjacentNode : symbolGraph.adjacentNodes(node))
+                marked[symbolGraph.indexOf(adjacentNode)] = false;
         }
         return null;
     }

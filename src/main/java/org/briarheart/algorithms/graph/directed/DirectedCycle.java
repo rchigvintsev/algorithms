@@ -18,40 +18,40 @@ public class DirectedCycle<T> extends AbstractGraphAlgorithm<T> {
     @SuppressWarnings("unchecked")
     public DirectedCycle(Graph<T> graph) {
         super(graph);
-        int nodesSize = graph.nodes().size();
+        int nodesSize = symbolGraph.nodes().size();
         marked = new boolean[nodesSize];
         onStack = new boolean[nodesSize];
         edgeTo = (T[]) new Object[nodesSize];
-        for (T node : graph.nodes())
-            if (!marked[indexOf(node)] && cycle == null)
-                depthFirstSearch(graph, node);
+        for (T node : symbolGraph.nodes())
+            if (!marked[symbolGraph.indexOf(node)] && cycle == null)
+                depthFirstSearch(node);
     }
 
     public boolean hasCycle() {
         return cycle != null;
     }
 
-    private void depthFirstSearch(Graph<T> graph, T node) {
-        onStack[indexOf(node)] = true;
-        marked[indexOf(node)] = true;
-        for (T adjacentNode : graph.successors(node)) {
+    public Iterable<T> getCycle() {
+        return cycle;
+    }
+
+    private void depthFirstSearch(T node) {
+        onStack[symbolGraph.indexOf(node)] = true;
+        marked[symbolGraph.indexOf(node)] = true;
+        for (T adjacentNode : symbolGraph.successors(node)) {
             if (cycle != null)
                 return;
-            if (!marked[indexOf(adjacentNode)]) {
-                edgeTo[indexOf(adjacentNode)] = node;
-                depthFirstSearch(graph, adjacentNode);
-            } else if (onStack[indexOf(adjacentNode)]) {
+            if (!marked[symbolGraph.indexOf(adjacentNode)]) {
+                edgeTo[symbolGraph.indexOf(adjacentNode)] = node;
+                depthFirstSearch(adjacentNode);
+            } else if (onStack[symbolGraph.indexOf(adjacentNode)]) {
                 cycle = new LinkedList<>();
-                for (T n = node; !n.equals(adjacentNode); n = edgeTo[indexOf(n)])
+                for (T n = node; !n.equals(adjacentNode); n = edgeTo[symbolGraph.indexOf(n)])
                     cycle.push(n);
                 cycle.push(adjacentNode);
                 cycle.push(node);
             }
         }
-        onStack[indexOf(node)] = false;
-    }
-
-    public Iterable<T> getCycle() {
-        return cycle;
+        onStack[symbolGraph.indexOf(node)] = false;
     }
 }

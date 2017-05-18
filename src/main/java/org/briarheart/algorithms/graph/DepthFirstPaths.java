@@ -24,34 +24,33 @@ public class DepthFirstPaths<T> extends AbstractGraphAlgorithm<T> {
         super(graph);
         checkNotNull(initialNode, "Initial node cannot be null");
         this.initialNode = initialNode;
-        int nodesSize = graph.nodes().size();
+        int nodesSize = symbolGraph.nodes().size();
         marked = new boolean[nodesSize];
         edgeTo = (T[]) new Object[nodesSize];
-        findPaths(graph, initialNode);
+        findPaths(initialNode);
     }
 
     public boolean hasPathTo(T node) {
-        checkNode(node);
-        return marked[indexOf(node)];
+        return marked[symbolGraph.indexOf(node)];
     }
 
     public Iterable<T> pathTo(T node) {
         if (!hasPathTo(node))
             return Collections.emptyList();
         Deque<T> path = new LinkedList<>();
-        for (T n = node; !n.equals(initialNode); n = edgeTo[indexOf(n)])
+        for (T n = node; !n.equals(initialNode); n = edgeTo[symbolGraph.indexOf(n)])
             path.push(n);
         path.push(initialNode);
         return path;
     }
 
-    private void findPaths(Graph<T> graph, T node) {
-        marked[indexOf(node)] = true;
-        for (T adjacentNode : graph.successors(node)) {
-            int nIndex = indexOf(adjacentNode);
+    private void findPaths(T node) {
+        marked[symbolGraph.indexOf(node)] = true;
+        for (T adjacentNode : symbolGraph.successors(node)) {
+            int nIndex = symbolGraph.indexOf(adjacentNode);
             if (!marked[nIndex]) {
                 edgeTo[nIndex] = node;
-                findPaths(graph, adjacentNode);
+                findPaths(adjacentNode);
             }
         }
     }

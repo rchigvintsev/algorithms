@@ -14,26 +14,24 @@ public class ConnectedComponents<T> extends AbstractGraphAlgorithm<T> {
 
     public ConnectedComponents(Graph<T> graph) {
         super(graph);
-        int nodesSize = graph.nodes().size();
+        int nodesSize = symbolGraph.nodes().size();
         marked = new boolean[nodesSize];
         id = new int[nodesSize];
         size = new int[nodesSize];
 
-        for (T node : graph.nodes())
-            if (!marked[indexOf(node)]) {
-                depthFirstSearch(graph, node);
+        for (T node : symbolGraph.nodes())
+            if (!marked[symbolGraph.indexOf(node)]) {
+                depthFirstSearch(node);
                 count++;
             }
     }
 
     public int componentId(T node) {
-        checkNode(node);
-        return id[indexOf(node)];
+        return id[symbolGraph.indexOf(node)];
     }
 
     public int componentSize(T node) {
-        checkNode(node);
-        return size[id[indexOf(node)]];
+        return size[id[symbolGraph.indexOf(node)]];
     }
 
     public int count() {
@@ -44,13 +42,13 @@ public class ConnectedComponents<T> extends AbstractGraphAlgorithm<T> {
         return componentId(n1) == componentId(n2);
     }
 
-    private void depthFirstSearch(Graph<T> graph, T node) {
-        int nIndex = indexOf(node);
+    private void depthFirstSearch(T node) {
+        int nIndex = symbolGraph.indexOf(node);
         marked[nIndex] = true;
         id[nIndex] = count;
         size[count]++;
-        for (T n : graph.adjacentNodes(node))
-            if (!marked[indexOf(n)])
-                depthFirstSearch(graph, n);
+        for (T n : symbolGraph.adjacentNodes(node))
+            if (!marked[symbolGraph.indexOf(n)])
+                depthFirstSearch(n);
     }
 }

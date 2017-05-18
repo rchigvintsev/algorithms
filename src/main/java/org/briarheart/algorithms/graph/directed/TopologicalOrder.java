@@ -3,33 +3,24 @@ package org.briarheart.algorithms.graph.directed;
 import com.google.common.graph.Graph;
 import org.briarheart.algorithms.graph.AbstractGraphAlgorithm;
 
-import java.util.Deque;
-import java.util.LinkedList;
-
 /**
  * @author Roman Chigvintsev
  */
 public class TopologicalOrder<T> extends AbstractGraphAlgorithm<T> {
-    private Deque<T> order;
-    private boolean[] marked;
+    private Iterable<T> order;
     private int[] rank;
 
     public TopologicalOrder(Graph<T> graph) {
         super(graph);
-
-        DirectedCycle<T> cycleFinder = new DirectedCycle<>(graph);
+        DirectedCycle<T> cycleFinder = new DirectedCycle<>(symbolGraph);
         if (cycleFinder.hasCycle())
             throw new IllegalArgumentException("Graph has a cycle");
-
-        order = new LinkedList<>();
-        marked = new boolean[graph.nodes().size()];
-        for (T node : graph.nodes())
-            if (!marked[indexOf(node)])
-                depthFirstSearch(graph, node);
-        rank = new int[graph.nodes().size()];
+        DepthFirstOrder<T> dfo = new DepthFirstOrder<>(symbolGraph);
+        order = dfo.getOrder();
+        rank = new int[symbolGraph.nodes().size()];
         int i = 0;
         for (T node : order)
-            rank[indexOf(node)] = i++;
+            rank[symbolGraph.indexOf(node)] = i++;
     }
 
     public boolean hasOrder() {
@@ -41,15 +32,6 @@ public class TopologicalOrder<T> extends AbstractGraphAlgorithm<T> {
     }
 
     public int rankOf(T node) {
-        checkNode(node);
-        return hasOrder() ? rank[indexOf(node)] : -1;
-    }
-
-    private void depthFirstSearch(Graph<T> graph, T node) {
-        marked[indexOf(node)] = true;
-        for (T adjacentNode : graph.successors(node))
-            if (!marked[indexOf(adjacentNode)])
-                depthFirstSearch(graph, adjacentNode);
-        order.push(node);
+        return hasOrder() ? rank[symbolGraph.indexOf(node)] : -1;
     }
 }
