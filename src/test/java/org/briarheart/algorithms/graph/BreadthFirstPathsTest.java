@@ -1,9 +1,8 @@
-package org.briarheart.algorithms.graph.undirected;
+package org.briarheart.algorithms.graph;
 
 import com.google.common.collect.Iterables;
 import com.google.common.graph.Graph;
 import com.google.common.graph.GraphBuilder;
-import org.briarheart.algorithms.graph.AbstractGraphAlgorithmTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
