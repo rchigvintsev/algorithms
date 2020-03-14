@@ -1,7 +1,6 @@
-package org.briarheart.algorithms.graph.undirected;
+package org.briarheart.algorithms.graph;
 
 import com.google.common.graph.Graph;
-import org.briarheart.algorithms.graph.AbstractGraphAlgorithm;
 
 import java.util.*;
 
@@ -55,7 +54,7 @@ public class BreadthFirstPaths<T> extends AbstractGraphAlgorithm<T> {
 
         while (!queue.isEmpty()) {
             T node = queue.poll();
-            for (T n : symbolGraph.adjacentNodes(node)) {
+            for (T n : symbolGraph.successors(node)) {
                 int nIndex = symbolGraph.indexOf(n);
                 if (!marked[nIndex]) {
                     edgeTo[nIndex] = node;
