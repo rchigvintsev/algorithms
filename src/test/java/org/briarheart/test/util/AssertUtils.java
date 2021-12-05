@@ -2,7 +2,7 @@ package org.briarheart.test.util;
 
 import java.util.Iterator;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Roman Chigvintsev

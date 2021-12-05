@@ -2,7 +2,7 @@ package org.briarheart.test.util;
 
 import com.google.common.graph.Graph;
 import com.google.common.graph.MutableGraph;
-import org.briarheart.algorithms.graph.DepthFirstPathsTest;
+import org.briarheart.algorithm.graph.DepthFirstPathsTest;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,8 +11,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author Roman Chigvintsev
