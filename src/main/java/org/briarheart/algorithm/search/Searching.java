@@ -1,6 +1,7 @@
 package org.briarheart.algorithm.search;
 
 import org.briarheart.algorithm.search.impl.BinarySearchAlgorithm;
+import org.briarheart.algorithm.search.impl.DoubleBinarySearchAlgorithm;
 import org.briarheart.algorithm.search.impl.IntBinarySearchAlgorithm;
 import org.briarheart.algorithm.search.impl.LongBinarySearchAlgorithm;
 
@@ -22,5 +23,9 @@ public class Searching {
 
     public static LongSearchingAlgorithm binarySearchLong() {
         return new LongBinarySearchAlgorithm();
+    }
+
+    public static DoubleSearchingAlgorithm binarySearchDouble() {
+        return new DoubleBinarySearchAlgorithm();
     }
 }
