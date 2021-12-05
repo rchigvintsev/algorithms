@@ -3,14 +3,18 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 16
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile 'com.google.guava:guava:21.0'
+    implementation 'com.google.guava:guava:31.0.1-jre'
 
-    testCompile 'junit:junit:4.11'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
 }
