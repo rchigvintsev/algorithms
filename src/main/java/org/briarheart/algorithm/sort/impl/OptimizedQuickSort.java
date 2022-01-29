@@ -1,7 +1,7 @@
 package org.briarheart.algorithm.sort.impl;
 
+import org.briarheart.algorithm.sort.SortAlgorithmType;
 import org.briarheart.algorithm.sort.SortEngine;
-import org.briarheart.algorithm.sort.SortingAlgorithm;
 
 /**
  * @author Roman Chigvintsev
@@ -9,7 +9,7 @@ import org.briarheart.algorithm.sort.SortingAlgorithm;
 class OptimizedQuickSort<T extends Comparable<? super T>> extends AbstractSortEngine<T> {
     private static final int INSERTION_SORTING_THRESHOLD = 7;
 
-    private SortEngine<T> insertSortEngine = create(SortingAlgorithm.OPTIMIZED_INSERTION);
+    private SortEngine<T> insertSortEngine = create(SortAlgorithmType.OPTIMIZED_INSERTION);
 
     @Override
     protected void doSort(T[] a, int lo, int hi) {

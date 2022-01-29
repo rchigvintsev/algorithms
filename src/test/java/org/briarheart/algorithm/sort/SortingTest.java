@@ -12,13 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import static org.briarheart.algorithm.sort.SortingAlgorithm.*;
+import static org.briarheart.algorithm.sort.SortAlgorithmType.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Roman Chigvintsev
  */
-public class SortTest {
+public class SortingTest {
     private static final String[] TEST_DATA_FILE_NAMES = {"tiny.txt", "medTale.txt"};
 
     private static String[][] unsorted;
@@ -27,7 +27,7 @@ public class SortTest {
 
     @BeforeAll
     public static void setUpClass() throws IOException {
-        ClassLoader classLoader = SortTest.class.getClassLoader();
+        ClassLoader classLoader = SortingTest.class.getClassLoader();
         unsorted = new String[TEST_DATA_FILE_NAMES.length][];
         for (int i = 0; i < TEST_DATA_FILE_NAMES.length; i++) {
             URL fileUrl = classLoader.getResource(TEST_DATA_FILE_NAMES[i]);
@@ -48,16 +48,6 @@ public class SortTest {
         unsortedCopy = new String[unsorted.length][];
         for (int i = 0; i < unsorted.length; i++)
             unsortedCopy[i] = Arrays.copyOf(unsorted[i], unsorted[i].length);
-    }
-
-    @Test
-    public void testSelectionSort() {
-        testSortingAlgorithm(SELECTION);
-    }
-
-    @Test
-    public void testSelectionSortWithRange() {
-        testSortingAlgorithmWithRange(SELECTION);
     }
 
     @Test
@@ -150,17 +140,17 @@ public class SortTest {
         testSortingAlgorithmWithRange(HEAP);
     }
 
-    private void testSortingAlgorithm(SortingAlgorithm alg) {
+    private void testSortingAlgorithm(SortAlgorithmType alg) {
         for (String[] a : unsortedCopy)
-            assertTrue(isSorted(Sort.doSort(a, alg)));
+            assertTrue(isSorted(Sorting.doSort(a, alg)));
     }
 
-    private void testSortingAlgorithmWithRange(SortingAlgorithm alg) {
+    private void testSortingAlgorithmWithRange(SortAlgorithmType alg) {
         for (String[] a : unsortedCopy) {
             int subarrayLength = a.length / 2;
             int lo = (a.length - subarrayLength) / 2;
             int hi = lo + subarrayLength - 1;
-            Sort.doSort(a, lo, hi, alg);
+            Sorting.doSort(a, lo, hi, alg);
             assertTrue(isSorted(a, lo, hi));
         }
 

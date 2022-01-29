@@ -1,20 +1,23 @@
 package org.briarheart.algorithm.search.impl;
 
-import org.briarheart.algorithm.search.LongSearchingAlgorithm;
+import org.briarheart.algorithm.search.LongSearchAlgorithm;
 import org.briarheart.algorithm.util.Preconditions;
 
-public class LongBinarySearchAlgorithm implements LongSearchingAlgorithm {
+/**
+ * @author Roman Chigvintsev
+ */
+public class LongBinarySearchAlgorithm implements LongSearchAlgorithm {
     @Override
-    public int findIndex(long key, long[] array) {
-        Preconditions.notNull(array, "Array must not be null");
+    public int findIndex(long key, long[] a) {
+        Preconditions.notNull(a, "Array must not be null");
 
         int lo = 0;
-        int hi = array.length - 1;
+        int hi = a.length - 1;
         while (lo <= hi) {
             int mid = lo + (hi - lo) / 2;
-            if (key < array[mid]) {
+            if (key < a[mid]) {
                 hi = mid - 1;
-            } else if (key > array[mid]) {
+            } else if (key > a[mid]) {
                 lo = mid + 1;
             } else {
                 return mid;

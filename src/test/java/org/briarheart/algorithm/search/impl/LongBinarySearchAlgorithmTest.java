@@ -1,6 +1,6 @@
 package org.briarheart.algorithm.search.impl;
 
-import org.briarheart.algorithm.search.LongSearchingAlgorithm;
+import org.briarheart.algorithm.search.LongSearchAlgorithm;
 import org.briarheart.algorithm.search.Searching;
 import org.briarheart.algorithm.util.TestFiles;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,14 +13,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LongBinarySearchAlgorithmTest {
-    private static final String TEST_DATA_FILE_NAME = "largeW.txt";
+    private static final String TEST_DATA_FILE_NAME = "tinyW.txt";
 
-    private static LongSearchingAlgorithm algorithm;
+    private static LongSearchAlgorithm algorithm;
     private static long[] testData;
 
     @BeforeAll
     static void beforeAll() throws IOException {
-        algorithm = Searching.binarySearchLong();
+        algorithm = Searching.binaryLong();
         testData = TestFiles.readAllLongs(TEST_DATA_FILE_NAME);
         Arrays.sort(testData);
     }
@@ -34,17 +34,17 @@ class LongBinarySearchAlgorithmTest {
 
     @Test
     void shouldFindValueIndex() {
-        assertEquals(500000, algorithm.findIndex(500451L, testData));
+        assertEquals(7, algorithm.findIndex(33L, testData));
     }
 
     @Test
     void shouldFindFirstValueIndex() {
-        assertEquals(2, algorithm.findIndex(0L, testData));
+        assertEquals(0, algorithm.findIndex(10L, testData));
     }
 
     @Test
     void shouldFindLastValueIndex() {
-        assertEquals(999999, algorithm.findIndex(999999L, testData));
+        assertEquals(14, algorithm.findIndex(98L, testData));
     }
 
     @Test

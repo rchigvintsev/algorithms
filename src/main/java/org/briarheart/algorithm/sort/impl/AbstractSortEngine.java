@@ -1,18 +1,16 @@
 package org.briarheart.algorithm.sort.impl;
 
+import org.briarheart.algorithm.sort.SortAlgorithmType;
 import org.briarheart.algorithm.sort.SortEngine;
-import org.briarheart.algorithm.sort.SortingAlgorithm;
 
 /**
  * @author Roman Chigvintsev
  */
 public abstract class AbstractSortEngine<T extends Comparable<? super T>> implements SortEngine<T> {
-    public static <T extends Comparable<? super T>> SortEngine<T> create(SortingAlgorithm alg) {
+    public static <T extends Comparable<? super T>> SortEngine<T> create(SortAlgorithmType alg) {
         if (alg == null)
-            alg = SortingAlgorithm.SHELL;
+            alg = SortAlgorithmType.SHELL;
         switch (alg) {
-            case SELECTION:
-                return new SelectionSort<>();
             case INSERTION:
                 return new InsertionSort<>();
             case OPTIMIZED_INSERTION:

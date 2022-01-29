@@ -1,7 +1,7 @@
 package org.briarheart.algorithm.sort.impl;
 
+import org.briarheart.algorithm.sort.SortAlgorithmType;
 import org.briarheart.algorithm.sort.SortEngine;
-import org.briarheart.algorithm.sort.SortingAlgorithm;
 
 import java.util.Arrays;
 
@@ -11,7 +11,7 @@ import java.util.Arrays;
 class OptimizedTopDownMergeSort<T extends Comparable<? super T>> extends AbstractMergeSort<T> {
     private static final int INSERTION_SORTING_THRESHOLD = 7;
 
-    private SortEngine<T> insertSortEngine = create(SortingAlgorithm.OPTIMIZED_INSERTION);
+    private SortEngine<T> insertSortEngine = create(SortAlgorithmType.OPTIMIZED_INSERTION);
     private T[] aux;
 
     @Override

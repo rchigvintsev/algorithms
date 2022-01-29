@@ -1,7 +1,7 @@
 package org.briarheart.algorithm.search.impl;
 
+import org.briarheart.algorithm.search.SearchAlgorithm;
 import org.briarheart.algorithm.search.Searching;
-import org.briarheart.algorithm.search.SearchingAlgorithm;
 import org.briarheart.algorithm.util.TestFiles;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -15,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class BinarySearchAlgorithmTest {
     private static final String TEST_DATA_FILE_NAME = "tinyST.txt";
 
-    private static SearchingAlgorithm<String> algorithm;
+    private static SearchAlgorithm<String> algorithm;
     private static String[] testData;
 
     @BeforeAll
     static void beforeAll() throws IOException {
-        algorithm = Searching.binarySearch();
+        algorithm = Searching.binary();
         testData = TestFiles.readAllWords(TEST_DATA_FILE_NAME);
         Arrays.sort(testData);
     }

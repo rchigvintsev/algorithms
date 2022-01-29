@@ -13,19 +13,19 @@ public class Searching {
         //no instance
     }
 
-    public static <T extends Comparable<? super T>> SearchingAlgorithm<T> binarySearch() {
+    public static <T extends Comparable<? super T>> SearchAlgorithm<T> binary() {
         return new BinarySearchAlgorithm<>();
     }
 
-    public static IntSearchingAlgorithm binarySearchInt() {
+    public static IntSearchAlgorithm binaryInt() {
         return new IntBinarySearchAlgorithm();
     }
 
-    public static LongSearchingAlgorithm binarySearchLong() {
+    public static LongSearchAlgorithm binaryLong() {
         return new LongBinarySearchAlgorithm();
     }
 
-    public static DoubleSearchingAlgorithm binarySearchDouble() {
+    public static DoubleSearchAlgorithm binaryDouble() {
         return new DoubleBinarySearchAlgorithm();
     }
 }

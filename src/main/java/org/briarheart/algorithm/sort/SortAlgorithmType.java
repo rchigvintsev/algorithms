@@ -3,8 +3,7 @@ package org.briarheart.algorithm.sort;
 /**
  * @author Roman Chigvintsev
  */
-public enum SortingAlgorithm {
-    SELECTION,
+public enum SortAlgorithmType {
     INSERTION,
     OPTIMIZED_INSERTION,
     SHELL,
