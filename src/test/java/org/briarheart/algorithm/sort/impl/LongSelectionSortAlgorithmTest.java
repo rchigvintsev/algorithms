@@ -8,9 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class LongSelectionSortAlgorithmTest {
+class LongSelectionSortAlgorithmTest extends AbstractLongSortAlgorithmTest {
     private static final String TEST_DATA_FILE_NAME = "tinyW.txt";
 
     private static LongSortAlgorithm algorithm;
@@ -41,17 +42,5 @@ class LongSelectionSortAlgorithmTest {
         int to = from + subarrayLength;
         algorithm.sort(testData, from, to);
         assertSorted(testData, from, to);
-    }
-
-    private void assertSorted(long[] a) {
-        assertSorted(a, 0, a.length);
-    }
-
-    private void assertSorted(long[] a, int from, int to) {
-        for (int i = from + 1; i < to; i++) {
-            int n = i;
-            assertFalse(a[i] < a[i - 1], ()
-                    -> "Array is not sorted: a[" + (n - 1) + "] > a[" + n + "] (" + a[n - 1] + " > " + a[n] + ")");
-        }
     }
 }

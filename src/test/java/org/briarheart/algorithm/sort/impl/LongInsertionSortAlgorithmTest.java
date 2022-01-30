@@ -1,6 +1,6 @@
 package org.briarheart.algorithm.sort.impl;
 
-import org.briarheart.algorithm.sort.IntSortAlgorithm;
+import org.briarheart.algorithm.sort.LongSortAlgorithm;
 import org.briarheart.algorithm.sort.Sorting;
 import org.briarheart.algorithm.util.TestFiles;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,16 +11,16 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class IntSelectionSortAlgorithmTest extends AbstractIntSortAlgorithmTest {
+class LongInsertionSortAlgorithmTest extends AbstractLongSortAlgorithmTest {
     private static final String TEST_DATA_FILE_NAME = "tinyW.txt";
 
-    private static IntSortAlgorithm algorithm;
-    private static int[] testData;
+    private static LongSortAlgorithm algorithm;
+    private static long[] testData;
 
     @BeforeAll
     static void beforeAll() throws IOException {
-        algorithm = Sorting.selectionInt();
-        testData = TestFiles.readAllInts(TEST_DATA_FILE_NAME);
+        algorithm = Sorting.insertionLong();
+        testData = TestFiles.readAllLongs(TEST_DATA_FILE_NAME);
     }
 
     @Test

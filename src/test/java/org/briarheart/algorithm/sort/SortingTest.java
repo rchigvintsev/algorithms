@@ -51,16 +51,6 @@ public class SortingTest {
     }
 
     @Test
-    public void testInsertionSort() {
-        testSortingAlgorithm(INSERTION);
-    }
-
-    @Test
-    public void testInsertionSortWithRange() {
-        testSortingAlgorithmWithRange(INSERTION);
-    }
-
-    @Test
     public void testOptimizedInsertionSort() {
         testSortingAlgorithm(OPTIMIZED_INSERTION);
     }

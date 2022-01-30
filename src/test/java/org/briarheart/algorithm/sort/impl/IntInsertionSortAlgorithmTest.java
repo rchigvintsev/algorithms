@@ -11,7 +11,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class IntSelectionSortAlgorithmTest extends AbstractIntSortAlgorithmTest {
+class IntInsertionSortAlgorithmTest extends AbstractIntSortAlgorithmTest {
     private static final String TEST_DATA_FILE_NAME = "tinyW.txt";
 
     private static IntSortAlgorithm algorithm;
@@ -19,7 +19,7 @@ class IntSelectionSortAlgorithmTest extends AbstractIntSortAlgorithmTest {
 
     @BeforeAll
     static void beforeAll() throws IOException {
-        algorithm = Sorting.selectionInt();
+        algorithm = Sorting.insertionInt();
         testData = TestFiles.readAllInts(TEST_DATA_FILE_NAME);
     }
 

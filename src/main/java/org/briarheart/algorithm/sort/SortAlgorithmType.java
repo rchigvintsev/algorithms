@@ -4,7 +4,6 @@ package org.briarheart.algorithm.sort;
  * @author Roman Chigvintsev
  */
 public enum SortAlgorithmType {
-    INSERTION,
     OPTIMIZED_INSERTION,
     SHELL,
     TOP_DOWN_MERGE,

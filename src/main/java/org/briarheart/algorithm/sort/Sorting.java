@@ -26,6 +26,22 @@ public class Sorting {
         return new DoubleSelectionSortAlgorithm();
     }
 
+    public static <T extends Comparable<? super T>> SortAlgorithm<T> insertion() {
+        return new InsertionSortAlgorithm<>();
+    }
+
+    public static IntSortAlgorithm insertionInt() {
+        return new IntInsertionSortAlgorithm();
+    }
+
+    public static LongSortAlgorithm insertionLong() {
+        return new LongInsertionSortAlgorithm();
+    }
+
+    public static DoubleSortAlgorithm insertionDouble() {
+        return new DoubleInsertionSortAlgorithm();
+    }
+
     public static <T extends Comparable<? super T>> T[] doSort(T[] a) {
         return doSort(a, SortAlgorithmType.SHELL);
     }

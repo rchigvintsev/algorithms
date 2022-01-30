@@ -11,8 +11,6 @@ public abstract class AbstractSortEngine<T extends Comparable<? super T>> implem
         if (alg == null)
             alg = SortAlgorithmType.SHELL;
         switch (alg) {
-            case INSERTION:
-                return new InsertionSort<>();
             case OPTIMIZED_INSERTION:
                 return new OptimizedInsertionSort<>();
             case SHELL:
