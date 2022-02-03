@@ -8,13 +8,9 @@ import org.briarheart.algorithm.sort.SortEngine;
  */
 public abstract class AbstractSortEngine<T extends Comparable<? super T>> implements SortEngine<T> {
     public static <T extends Comparable<? super T>> SortEngine<T> create(SortAlgorithmType alg) {
-        if (alg == null)
-            alg = SortAlgorithmType.SHELL;
         switch (alg) {
             case OPTIMIZED_INSERTION:
                 return new OptimizedInsertionSort<>();
-            case SHELL:
-                return new ShellSort<>();
             case TOP_DOWN_MERGE:
                 return new TopDownMergeSort<>();
             case OPTIMIZED_TOP_DOWN_MERGE:

@@ -61,16 +61,6 @@ public class SortingTest {
     }
 
     @Test
-    public void testShellSort() {
-        testSortingAlgorithm(SHELL);
-    }
-
-    @Test
-    public void testShellSortWithRange() {
-        testSortingAlgorithmWithRange(SHELL);
-    }
-
-    @Test
     public void testTopDownMergeSort() {
         testSortingAlgorithm(TOP_DOWN_MERGE);
     }

@@ -42,12 +42,20 @@ public class Sorting {
         return new DoubleInsertionSortAlgorithm();
     }
 
-    public static <T extends Comparable<? super T>> T[] doSort(T[] a) {
-        return doSort(a, SortAlgorithmType.SHELL);
+    public static <T extends Comparable<? super T>> SortAlgorithm<T> shell() {
+        return new ShellSortAlgorithm<>();
     }
 
-    public static <T extends Comparable<? super T>> T[] doSort(T[] a, int lo, int hi) {
-        return doSort(a, lo, hi, SortAlgorithmType.SHELL);
+    public static IntSortAlgorithm shellInt() {
+        return new IntShellSortAlgorithm();
+    }
+
+    public static LongSortAlgorithm shellLong() {
+        return new LongShellSortAlgorithm();
+    }
+
+    public static DoubleSortAlgorithm shellDouble() {
+        return new DoubleShellSortAlgorithm();
     }
 
     public static <T extends Comparable<? super T>> T[] doSort(T[] a, SortAlgorithmType alg) {
