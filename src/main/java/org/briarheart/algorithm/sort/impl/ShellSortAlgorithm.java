@@ -1,6 +1,7 @@
 package org.briarheart.algorithm.sort.impl;
 
 import org.briarheart.algorithm.sort.SortAlgorithm;
+import org.briarheart.algorithm.util.Preconditions;
 
 import static org.briarheart.algorithm.util.Comparisons.lt;
 import static org.briarheart.algorithm.util.Misc.swap;
@@ -18,6 +19,8 @@ import static org.briarheart.algorithm.util.Misc.swap;
 public class ShellSortAlgorithm<T extends Comparable<? super T>> implements SortAlgorithm<T> {
     @Override
     public void sort(T[] a, int from, int to) {
+        Preconditions.notNull(a, "Array must not be null");
+
         int step = getStep(to - from);
         while (step > 0) {
             for (int i = from + step; i < to; i++) {

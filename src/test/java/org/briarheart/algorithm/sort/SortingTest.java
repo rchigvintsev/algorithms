@@ -51,26 +51,6 @@ public class SortingTest {
     }
 
     @Test
-    public void testTopDownMergeSort() {
-        testSortingAlgorithm(TOP_DOWN_MERGE);
-    }
-
-    @Test
-    public void testTopDownMergeSortWithRange() {
-        testSortingAlgorithmWithRange(TOP_DOWN_MERGE);
-    }
-
-    @Test
-    public void testOptimizedTopDownMergeSort() {
-        testSortingAlgorithm(OPTIMIZED_TOP_DOWN_MERGE);
-    }
-
-    @Test
-    public void testOptimizedTopDownMergeSortWithRange() {
-        testSortingAlgorithmWithRange(OPTIMIZED_TOP_DOWN_MERGE);
-    }
-
-    @Test
     public void testBottomUpMergeSort() {
         testSortingAlgorithm(BOTTOM_UP_MERGE);
     }

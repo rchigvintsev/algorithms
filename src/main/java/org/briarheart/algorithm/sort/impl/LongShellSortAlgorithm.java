@@ -1,6 +1,7 @@
 package org.briarheart.algorithm.sort.impl;
 
 import org.briarheart.algorithm.sort.LongSortAlgorithm;
+import org.briarheart.algorithm.util.Preconditions;
 
 import static org.briarheart.algorithm.sort.impl.ShellSortAlgorithm.getStep;
 import static org.briarheart.algorithm.util.Misc.swap;
@@ -11,6 +12,8 @@ import static org.briarheart.algorithm.util.Misc.swap;
 public class LongShellSortAlgorithm implements LongSortAlgorithm {
     @Override
     public void sort(long[] a, int from, int to) {
+        Preconditions.notNull(a, "Array must not be null");
+
         int step = getStep(to - from);
         while (step > 0) {
             for (int i = from + step; i < to; i++) {
