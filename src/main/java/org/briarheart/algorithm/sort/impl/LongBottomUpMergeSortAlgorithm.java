@@ -3,7 +3,7 @@ package org.briarheart.algorithm.sort.impl;
 import org.briarheart.algorithm.sort.LongSortAlgorithm;
 import org.briarheart.algorithm.util.Preconditions;
 
-import static org.briarheart.algorithm.sort.impl.LongMergeSortAlgorithm.merge;
+import static org.briarheart.algorithm.sort.impl.LongTopDownMergeSortAlgorithm.merge;
 
 /**
  * @author Roman Chigvintsev

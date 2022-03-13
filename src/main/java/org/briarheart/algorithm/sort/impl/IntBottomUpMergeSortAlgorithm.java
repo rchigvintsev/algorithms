@@ -3,7 +3,7 @@ package org.briarheart.algorithm.sort.impl;
 import org.briarheart.algorithm.sort.IntSortAlgorithm;
 import org.briarheart.algorithm.util.Preconditions;
 
-import static org.briarheart.algorithm.sort.impl.IntMergeSortAlgorithm.merge;
+import static org.briarheart.algorithm.sort.impl.IntTopDownMergeSortAlgorithm.merge;
 
 /**
  * @author Roman Chigvintsev

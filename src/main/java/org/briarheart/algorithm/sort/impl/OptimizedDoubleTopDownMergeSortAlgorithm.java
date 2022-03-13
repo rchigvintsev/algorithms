@@ -6,10 +6,12 @@ import org.briarheart.algorithm.util.Preconditions;
 
 import java.util.Arrays;
 
+import static org.briarheart.algorithm.sort.impl.DoubleTopDownMergeSortAlgorithm.merge;
+
 /**
  * @author Roman Chigvintsev
  */
-public class DoubleMergeSortAlgorithm implements DoubleSortAlgorithm {
+public class OptimizedDoubleTopDownMergeSortAlgorithm implements DoubleSortAlgorithm {
     private static final int INSERTION_SORT_THRESHOLD = 7;
 
     private final DoubleSortAlgorithm insertionSort = Sorting.insertionDouble();
@@ -38,20 +40,5 @@ public class DoubleMergeSortAlgorithm implements DoubleSortAlgorithm {
         }
 
         merge(src, dst, lo, mid, hi);
-    }
-
-    static void merge(double[] src, double[] dst, int lo, int mid, int hi) {
-        int i = lo, j = mid + 1;
-        for (int k = lo; k <= hi; k++) {
-            if (i > mid) {
-                dst[k] = src[j++];
-            } else if (j > hi) {
-                dst[k] = src[i++];
-            } else if (Double.compare(src[j], src[i]) < 0) {
-                dst[k] = src[j++];
-            } else {
-                dst[k] = src[i++];
-            }
-        }
     }
 }

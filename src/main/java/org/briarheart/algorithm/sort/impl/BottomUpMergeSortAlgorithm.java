@@ -5,7 +5,7 @@ import org.briarheart.algorithm.util.Preconditions;
 
 import java.lang.reflect.Array;
 
-import static org.briarheart.algorithm.sort.impl.MergeSortAlgorithm.merge;
+import static org.briarheart.algorithm.sort.impl.TopDownMergeSortAlgorithm.merge;
 
 /**
  * An implementation of bottom-up merge sort algorithm.

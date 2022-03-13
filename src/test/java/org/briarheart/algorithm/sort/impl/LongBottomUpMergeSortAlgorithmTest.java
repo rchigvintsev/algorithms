@@ -1,7 +1,6 @@
 package org.briarheart.algorithm.sort.impl;
 
 import org.briarheart.algorithm.sort.LongSortAlgorithm;
-import org.briarheart.algorithm.sort.Sorting;
 import org.briarheart.algorithm.util.TestFiles;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,7 @@ class LongBottomUpMergeSortAlgorithmTest extends AbstractLongSortAlgorithmTest {
 
     @BeforeAll
     static void beforeAll() throws IOException {
-        algorithm = Sorting.bottomUpMergeLong();
+        algorithm = new LongBottomUpMergeSortAlgorithm();
         testData = TestFiles.readAllLongs(TEST_DATA_FILE_NAME);
     }
 

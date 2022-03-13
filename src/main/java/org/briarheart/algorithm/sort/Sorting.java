@@ -27,19 +27,19 @@ public class Sorting {
     }
 
     public static <T extends Comparable<? super T>> SortAlgorithm<T> insertion() {
-        return new InsertionSortAlgorithm<>();
+        return new OptimizedInsertionSortAlgorithm<>();
     }
 
     public static IntSortAlgorithm insertionInt() {
-        return new IntInsertionSortAlgorithm();
+        return new OptimizedIntInsertionSortAlgorithm();
     }
 
     public static LongSortAlgorithm insertionLong() {
-        return new LongInsertionSortAlgorithm();
+        return new OptimizedLongInsertionSortAlgorithm();
     }
 
     public static DoubleSortAlgorithm insertionDouble() {
-        return new DoubleInsertionSortAlgorithm();
+        return new OptimizedDoubleInsertionSortAlgorithm();
     }
 
     public static <T extends Comparable<? super T>> SortAlgorithm<T> shell() {
@@ -65,19 +65,19 @@ public class Sorting {
     }
 
     public static <T extends Comparable<? super T>> SortAlgorithm<T> merge() {
-        return new MergeSortAlgorithm<>();
+        return new OptimizedTopDownMergeSortAlgorithm<>();
     }
 
     public static IntSortAlgorithm mergeInt() {
-        return new IntMergeSortAlgorithm();
+        return new OptimizedIntTopDownMergeSortAlgorithm();
     }
 
     public static LongSortAlgorithm mergeLong() {
-        return new LongMergeSortAlgorithm();
+        return new OptimizedLongTopDownMergeSortAlgorithm();
     }
 
     public static DoubleSortAlgorithm mergeDouble() {
-        return new DoubleMergeSortAlgorithm();
+        return new OptimizedDoubleTopDownMergeSortAlgorithm();
     }
 
     public static <T extends Comparable<? super T>> SortAlgorithm<T> bottomUpMerge() {

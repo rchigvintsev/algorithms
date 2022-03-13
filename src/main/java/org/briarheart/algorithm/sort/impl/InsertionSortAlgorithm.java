@@ -1,7 +1,6 @@
 package org.briarheart.algorithm.sort.impl;
 
 import org.briarheart.algorithm.sort.SortAlgorithm;
-import org.briarheart.algorithm.util.Preconditions;
 
 import static org.briarheart.algorithm.util.Comparisons.lt;
 import static org.briarheart.algorithm.util.Misc.swap;
@@ -18,36 +17,16 @@ import static org.briarheart.algorithm.util.Misc.swap;
  * </blockquote>
  * <p>
  * Insertion sort algorithm has O(n<sup>2</sup>) time complexity in the average case.
- * <p>
- * This is an optimized version of insertion sort algorithm with half exchanges and a sentinel.
  *
  * @author Roman Chigvintsev
  */
 public class InsertionSortAlgorithm<T extends Comparable<? super T>> implements SortAlgorithm<T> {
     @Override
     public void sort(T[] a, int from, int to) {
-        Preconditions.notNull(a, "Array must not be null");
-
-        int exchanges = 0;
-        for (int i = to - 1; i > from; i--) {
-            if (lt(a[i], a[i - 1])) {
-                swap(a, i, i - 1);
-                exchanges++;
+        for (int i = from + 1; i < to; i++) {
+            for (int j = i; j > from && lt(a[j], a[j - 1]); j--) {
+                swap(a, j, j - 1);
             }
-        }
-
-        if (exchanges == 0) {
-            return;
-        }
-
-        for (int i = from + 2; i < to; i++) {
-            T v = a[i];
-            int j = i;
-            while (lt(v, a[j - 1])) {
-                a[j] = a[j - 1];
-                j--;
-            }
-            a[j] = v;
         }
     }
 }

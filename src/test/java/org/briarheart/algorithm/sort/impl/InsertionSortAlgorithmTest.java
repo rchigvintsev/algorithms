@@ -1,7 +1,6 @@
 package org.briarheart.algorithm.sort.impl;
 
 import org.briarheart.algorithm.sort.SortAlgorithm;
-import org.briarheart.algorithm.sort.Sorting;
 import org.briarheart.algorithm.util.TestFiles;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,7 @@ class InsertionSortAlgorithmTest extends AbstractSortAlgorithmTest {
 
     @BeforeAll
     static void beforeAll() throws IOException {
-        algorithm = Sorting.insertion();
+        algorithm = new InsertionSortAlgorithm<>();
         testData = TestFiles.readAllWords(TEST_DATA_FILE_NAME);
     }
 

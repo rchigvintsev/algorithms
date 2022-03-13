@@ -6,6 +6,7 @@ import org.briarheart.algorithm.util.Preconditions;
 
 import java.util.Arrays;
 
+import static org.briarheart.algorithm.sort.impl.TopDownMergeSortAlgorithm.merge;
 import static org.briarheart.algorithm.util.Comparisons.lt;
 
 /**
@@ -15,7 +16,7 @@ import static org.briarheart.algorithm.util.Comparisons.lt;
  *
  * @author Roman Chigvintsev
  */
-public class MergeSortAlgorithm<T extends Comparable<? super T>> implements SortAlgorithm<T> {
+public class OptimizedTopDownMergeSortAlgorithm<T extends Comparable<? super T>> implements SortAlgorithm<T> {
     private static final int INSERTION_SORT_THRESHOLD = 7;
 
     private final SortAlgorithm<T> insertionSort = Sorting.insertion();
@@ -43,20 +44,5 @@ public class MergeSortAlgorithm<T extends Comparable<? super T>> implements Sort
         }
 
         merge(src, dst, lo, mid, hi);
-    }
-
-    static <T extends Comparable<? super T>> void merge(T[] src, T[] dst, int lo, int mid, int hi) {
-        int i = lo, j = mid + 1;
-        for (int k = lo; k <= hi; k++) {
-            if (i > mid) {
-                dst[k] = src[j++];
-            } else if (j > hi) {
-                dst[k] = src[i++];
-            } else if (lt(src[j], src[i])) {
-                dst[k] = src[j++];
-            } else {
-                dst[k] = src[i++];
-            }
-        }
     }
 }
