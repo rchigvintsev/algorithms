@@ -80,6 +80,22 @@ public class Sorting {
         return new DoubleMergeSortAlgorithm();
     }
 
+    public static <T extends Comparable<? super T>> SortAlgorithm<T> bottomUpMerge() {
+        return new BottomUpMergeSortAlgorithm<>();
+    }
+
+    public static IntSortAlgorithm bottomUpMergeInt() {
+        return new IntBottomUpMergeSortAlgorithm();
+    }
+
+    public static LongSortAlgorithm bottomUpMergeLong() {
+        return new LongBottomUpMergeSortAlgorithm();
+    }
+
+    public static DoubleSortAlgorithm bottomUpMergeDouble() {
+        return new DoubleBottomUpMergeSortAlgorithm();
+    }
+
     public static <T extends Comparable<? super T>> T[] doSort(T[] a, int lo, int hi, SortAlgorithmType alg) {
         return AbstractSortEngine.<T>create(alg).sort(a, lo, hi);
     }

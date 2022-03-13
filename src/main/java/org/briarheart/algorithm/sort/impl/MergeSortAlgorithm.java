@@ -23,7 +23,6 @@ public class MergeSortAlgorithm<T extends Comparable<? super T>> implements Sort
     @Override
     public void sort(T[] a, int from, int to) {
         Preconditions.notNull(a, "Array must not be null");
-
         T[] aux = Arrays.copyOf(a, a.length);
         doSort(aux, a, from, to - 1);
     }

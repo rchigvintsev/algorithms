@@ -51,16 +51,6 @@ public class SortingTest {
     }
 
     @Test
-    public void testBottomUpMergeSort() {
-        testSortingAlgorithm(BOTTOM_UP_MERGE);
-    }
-
-    @Test
-    public void testBottomUpMergeSortWithRange() {
-        testSortingAlgorithmWithRange(BOTTOM_UP_MERGE);
-    }
-
-    @Test
     public void testQuickSort() {
         testSortingAlgorithm(QUICK);
     }

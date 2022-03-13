@@ -10,13 +10,13 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MergeSortAlgorithmTest extends AbstractSortAlgorithmTest {
+class BottomUpMergeSortAlgorithmTest extends AbstractSortAlgorithmTest {
     private static SortAlgorithm<String> algorithm;
     private static String[] testData;
 
     @BeforeAll
     static void beforeAll() throws IOException {
-        algorithm = Sorting.merge();
+        algorithm = Sorting.bottomUpMerge();
         testData = new String[] {"M", "E", "R", "G", "E", "S", "O", "R", "T", "E", "X", "A", "M", "P", "L", "E"};
     }
 

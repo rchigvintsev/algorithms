@@ -5,7 +5,6 @@ package org.briarheart.algorithm.sort;
  */
 public enum SortAlgorithmType {
     OPTIMIZED_INSERTION,
-    BOTTOM_UP_MERGE,
     QUICK,
     OPTIMIZED_QUICK,
     HEAP
