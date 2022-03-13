@@ -80,20 +80,20 @@ public class Sorting {
         return new OptimizedDoubleTopDownMergeSortAlgorithm();
     }
 
-    public static <T extends Comparable<? super T>> SortAlgorithm<T> bottomUpMerge() {
-        return new BottomUpMergeSortAlgorithm<>();
+    public static <T extends Comparable<? super T>> SortAlgorithm<T> quick() {
+        return new OptimizedQuickSortAlgorithm<>();
     }
 
-    public static IntSortAlgorithm bottomUpMergeInt() {
-        return new IntBottomUpMergeSortAlgorithm();
+    public static IntSortAlgorithm quickInt() {
+        return new OptimizedIntQuickSortAlgorithm();
     }
 
-    public static LongSortAlgorithm bottomUpMergeLong() {
-        return new LongBottomUpMergeSortAlgorithm();
+    public static LongSortAlgorithm quickLong() {
+        return new OptimizedLongQuickSortAlgorithm();
     }
 
-    public static DoubleSortAlgorithm bottomUpMergeDouble() {
-        return new DoubleBottomUpMergeSortAlgorithm();
+    public static DoubleSortAlgorithm quickDouble() {
+        return new OptimizedDoubleQuickSortAlgorithm();
     }
 
     public static <T extends Comparable<? super T>> T[] doSort(T[] a, int lo, int hi, SortAlgorithmType alg) {

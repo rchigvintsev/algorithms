@@ -9,10 +9,6 @@ import org.briarheart.algorithm.sort.SortEngine;
 public abstract class AbstractSortEngine<T extends Comparable<? super T>> implements SortEngine<T> {
     public static <T extends Comparable<? super T>> SortEngine<T> create(SortAlgorithmType alg) {
         switch (alg) {
-            case QUICK:
-                return new QuickSort<>();
-            case OPTIMIZED_QUICK:
-                return new OptimizedQuickSort<>();
             case HEAP:
                 return new HeapSort<>();
         }

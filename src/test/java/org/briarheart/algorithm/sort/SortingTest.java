@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import static org.briarheart.algorithm.sort.SortAlgorithmType.*;
+import static org.briarheart.algorithm.sort.SortAlgorithmType.HEAP;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -48,26 +48,6 @@ public class SortingTest {
         unsortedCopy = new String[unsorted.length][];
         for (int i = 0; i < unsorted.length; i++)
             unsortedCopy[i] = Arrays.copyOf(unsorted[i], unsorted[i].length);
-    }
-
-    @Test
-    public void testQuickSort() {
-        testSortingAlgorithm(QUICK);
-    }
-
-    @Test
-    public void testQuickSortWithRange() {
-        testSortingAlgorithmWithRange(QUICK);
-    }
-
-    @Test
-    public void testOptimizedQuickSort() {
-        testSortingAlgorithm(OPTIMIZED_QUICK);
-    }
-
-    @Test
-    public void testOptimizedQuickSortWithRange() {
-        testSortingAlgorithmWithRange(OPTIMIZED_QUICK);
     }
 
     @Test
