@@ -1,13 +1,12 @@
 package org.briarheart.algorithm.search.util;
 
-import org.junit.jupiter.api.BeforeEach;
+import java.util.Map;
 
 /**
  * @author Roman Chigvintsev
  */
-public class SeparateChainingHashMapTest extends AbstractHashMapTest {
-    @BeforeEach
-    public void setUp() {
-        map = new SeparateChainingHashMap<>();
+class SeparateChainingHashMapTest extends AbstractMapTest {
+    Map<String, Integer> createMap() {
+        return new SeparateChainingHashMap<>();
     }
 }

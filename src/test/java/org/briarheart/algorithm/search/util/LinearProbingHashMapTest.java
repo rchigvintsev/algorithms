@@ -1,13 +1,24 @@
 package org.briarheart.algorithm.search.util;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Roman Chigvintsev
  */
-public class LinearProbingHashMapTest extends AbstractHashMapTest {
-    @BeforeEach
-    public void setUp() throws Exception {
-        map = new LinearProbingHashMap<>();
+class LinearProbingHashMapTest extends AbstractMapTest {
+    @Override
+    Map<String, Integer> createMap() {
+        return new LinearProbingHashMap<>();
+    }
+
+    @Test
+    void shouldThrowExceptionOnConstructWhenInitialCapacityIsLessThenZero() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new LinearProbingHashMap<>(-1));
+        assertEquals("Initial capacity must not be negative", e.getMessage());
     }
 }
